@@ -3,5 +3,8 @@
     <string name="login">login</string>
     <string name="email">email</string>
     <string name="password">password</string>
-    <string name="sign_up"><u>or sign up here</u></string>
+    <string name="or_sign_up"><u>or sign up here</u></string>
+    <string name="sign_up">sign up</string>
+    <string name="or_login"> <u>or login here</u> </string>
+    <string name="display_name">display name</string>
 </resources>

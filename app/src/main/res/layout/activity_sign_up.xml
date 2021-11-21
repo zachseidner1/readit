@@ -18,26 +18,25 @@
         app:srcCompat="@drawable/readit_logo"
         android:contentDescription="@string/app_name"/>
 
-    <!-- login text-->
+    <!-- sign up text-->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/comic_sans"
-        android:text="@string/login"
+        android:text="@string/sign_up"
         android:textColor="@color/white"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <!-- sign up text-->
+    <!-- alt login text-->
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/comic_sans"
-        android:text="@string/or_sign_up"
+        android:text="@string/or_login"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/email_bg"
@@ -56,6 +55,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- display name background -->
+    <ImageView
+        android:id="@+id/display_name_bg"
+        android:layout_width="322dp"
+        android:layout_height="91dp"
+        android:background="@drawable/rectangle_round_corners"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
     <!-- Password background -->
     <ImageView
         android:id="@+id/password_bg"
@@ -65,7 +75,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/email_bg" />
+
+
 
     <!-- email field -->
     <EditText
@@ -80,7 +92,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Password field -->
+    <!-- display name field -->
+    <EditText
+        android:id="@+id/editTextTextDisplayName"
+        android:layout_width="288dp"
+        android:layout_height="46dp"
+        android:ems="10"
+        android:hint="@string/display_name"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <!-- password field -->
     <EditText
         android:id="@+id/editTextTextPassword"
         android:layout_width="288dp"
@@ -88,11 +113,13 @@
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/email_bg" />
 
+    <!-- submit button -->
     <ImageButton
         android:id="@+id/imageButton7"
         android:layout_width="wrap_content"
@@ -101,8 +128,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_bg"
+        app:layout_constraintTop_toBottomOf="@+id/password_bg"
         app:srcCompat="@drawable/login" />
-
-
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
