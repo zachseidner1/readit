@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">readit</string>
+    <string name="login">login</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="sign_up"><u>or sign up here</u></string>
 </resources>
