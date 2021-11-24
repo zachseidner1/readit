@@ -7,4 +7,21 @@
     <string name="sign_up">sign up</string>
     <string name="or_login"> <u>or login here</u> </string>
     <string name="display_name">display name</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="welcome">welcome</string>
+    <string name="login_instruct">enter your region and phone number to create your account.</string>
+    <string name="disclaimer">by continuing, you confirm that you are authorized to use this phone number and agree to receive text message. The operator may apply its own rates.</string>
+    <string-array name="country_codes_array">
+        <item>+1, US/CA</item>
+        <item>+44, UK</item>
+        <item>+86, CHN</item>
+        <item>+91, IN</item>
+    </string-array>
+    <string name="verify">verify with code:</string>
+    <string name="verify_desc">a 6 digit code was just sent to </string>
+    <string name="dash">-</string>
+    <string name="code_error">verification code incorrect or an error occurred, please try again.</string>
 </resources>

@@ -1,102 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4285F4"
-    tools:context=".MainActivity">
+    android:paddingTop="?attr/actionBarSize">
 
-    <!-- logo -->
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="332dp"
-        android:layout_height="182dp"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/readit_logo"
-        android:layout_centerHorizontal="true"/>
-
-    <!-- login text-->
-    <TextView
-        android:id="@+id/loginView"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/comic_sans"
-        android:text="@string/login"
-        android:textColor="@color/white"
-        android:textSize="60sp"
-        android:gravity="center_horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/logo"/>
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
-    <!-- sign up text-->
-    <TextView
-        android:id="@+id/orSignUpView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/comic_sans"
-        android:text="@string/or_sign_up"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:layout_below="@id/loginView"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClick"/>
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/mobile_navigation" />
 
-    <!-- Email background -->
-    <ImageView
-        android:id="@+id/email_bg"
-        android:layout_width="322dp"
-        android:layout_height="91dp"
-        android:background="@drawable/rectangle_round_corners"
-        android:layout_below="@id/orSignUpView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
-
-    <!-- Password background -->
-    <ImageView
-        android:id="@+id/password_bg"
-        android:layout_width="322dp"
-        android:layout_height="91dp"
-        android:background="@drawable/rectangle_round_corners"
-        android:layout_below="@id/email_bg"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
-
-    <!-- email field -->
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="288dp"
-        android:layout_height="46dp"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:layout_below="@id/orSignUpView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"/>
-
-    <!-- Password field -->
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="288dp"
-        android:layout_height="46dp"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:layout_below="@id/email_bg"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"/>
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/login"
-        android:background="#4285F4"
-        android:layout_below="@id/password_bg"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:onClick="submit"/>
-
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
