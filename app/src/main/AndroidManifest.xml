@@ -9,13 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Readit">
-        <activity android:name=".CodeVerificationActivity"></activity>
+        <activity android:name=".CodeVerificationActivity" />
         <activity android:name=".DisplayNameActivity" />
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main2" />
+            android:name=".WelcomeActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

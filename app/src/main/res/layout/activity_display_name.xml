@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DisplayNameActivity">
+    tools:context=".DisplayNameActivity"
+    android:background="@color/blue">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/displayNamePrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/display_name_prompt"
+        android:layout_centerHorizontal="false"
+        android:textColor="@color/white"
+        android:fontFamily="@font/roboto_bold"
+        android:textSize="35sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"
+        />
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:id="@+id/displayNameText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_round_corners"
+        android:hint="@string/display_name_hint"
+        android:drawableStart="@drawable/ic_baseline_account_circle_24"
+        android:drawablePadding="10dp"
+        android:autofillHints="no"
+        android:inputType="text"
+        android:padding="10dp"
+        android:layout_below="@+id/displayNamePrompt" />
+
+    <ImageButton
+        android:id="@+id/continueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/gradient_button"
+        android:src="@drawable/login"
+        android:onClick="onSubmit"
+        android:contentDescription="@string/image_button_desc"
+        android:layout_below="@id/displayNameText"
+        android:layout_marginStart="10dp"/>
+
+
+
+</RelativeLayout>

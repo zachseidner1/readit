@@ -214,10 +214,14 @@ public class CodeVerificationActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
 
                             FirebaseUser user = task.getResult().getUser();
+                            if(user.getDisplayName() == null || user.getDisplayName().isEmpty()){
+                                Intent i = new Intent(numBox1.getContext(), DisplayNameActivity.class);
+                                startActivity(i);
+                            } else { //If the user already has a display name they already have a profile.
+                                Intent i = new Intent(numBox1.getContext(), MainActivity.class);
+                                startActivity(i);
+                            }
                             //I don't like doing this but I don't have a view to get the context of so I'm using numBox1.
-                            Intent i = new Intent(numBox1.getContext(), DisplayNameActivity.class);
-                            startActivity(i);
-                            // Update UI
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

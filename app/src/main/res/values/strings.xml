@@ -24,4 +24,7 @@
     <string name="verify_desc">a 6 digit code was just sent to </string>
     <string name="dash">-</string>
     <string name="code_error">verification code incorrect or an error occurred, please try again.</string>
+    <string name="display_name_hint">JohnDoe1</string>
+    <string name="display_name_prompt">enter your display name:</string>
+    <string name="image_button_desc">continue</string>
 </resources>
