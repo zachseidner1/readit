@@ -8,18 +8,13 @@
     <string name="or_login"> <u>or login here</u> </string>
     <string name="display_name">display name</string>
     <string name="title_activity_main2">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_feed">Feed</string>
+    <string name="title_create">New Post</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_settings">Settings</string>
     <string name="welcome">welcome</string>
     <string name="login_instruct">enter your region and phone number to create your account.</string>
     <string name="disclaimer">by continuing, you confirm that you are authorized to use this phone number and agree to receive text message. The operator may apply its own rates.</string>
-    <string-array name="country_codes_array">
-        <item>+1, US/CA</item>
-        <item>+44, UK</item>
-        <item>+86, CHN</item>
-        <item>+91, IN</item>
-    </string-array>
     <string name="verify">verify with code:</string>
     <string name="verify_desc">a 6 digit code was just sent to </string>
     <string name="dash">-</string>
@@ -27,4 +22,13 @@
     <string name="display_name_hint">JohnDoe1</string>
     <string name="display_name_prompt">enter your display name:</string>
     <string name="image_button_desc">continue</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="log_out">log out</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="country_codes_array">
+        <item>+1, US/CA</item>
+        <item>+44, UK</item>
+        <item>+86, CHN</item>
+        <item>+91, IN</item>
+    </string-array>
 </resources>

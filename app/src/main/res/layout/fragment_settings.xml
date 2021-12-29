@@ -3,14 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NotificationsFragment">
+    android:background="@color/white"
+    tools:context=".SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<!--    TODO this is not great settings menu... -->
+    <Button
+        android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_notifications"
+        android:background="@drawable/rectangle_round_corners"
+        android:text="@string/log_out"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
         android:textSize="30sp"
-        android:layout_centerInParent="true"/>
+        />
 
 </RelativeLayout>
