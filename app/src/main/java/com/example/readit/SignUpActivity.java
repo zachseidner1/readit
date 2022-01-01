@@ -53,6 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAuth = FirebaseAuth.getInstance();
+
     }
 
     public void onSubmit(View view){
@@ -83,7 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onVerificationFailed(@NonNull FirebaseException e) {
                 //Display error to the user.
                 textBg.setBackground(ContextCompat.getDrawable(view.getContext(), R.drawable.rectangle_round_corners_error));
-                phoneText.setError("Verification failed. Please try again.");
+                phoneText.setError(e.getLocalizedMessage());
             }
 
             @Override

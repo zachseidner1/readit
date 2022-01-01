@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/onePostLayout"
+    android:padding="15dp">
+
+    <ImageView
+        android:id="@+id/iv_feedPostImage"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_feedPostTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_toEndOf="@+id/iv_feedPostImage"
+        android:layout_toRightOf="@+id/iv_feedPostImage"
+        android:text="Title"
+        android:textColor="#000"
+        android:textSize="20dp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/iv_feedPostImage"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider" />
+
+
+</RelativeLayout>

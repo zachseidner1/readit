@@ -1,2 +1,3 @@
+include ':readitModule'
 include ':app'
 rootProject.name = "readit"
