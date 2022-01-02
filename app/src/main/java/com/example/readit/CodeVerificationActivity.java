@@ -49,6 +49,7 @@ public class CodeVerificationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         Intent i = getIntent();
 
+
         numBox1 = findViewById(R.id.numBox1);
         numBox2 = findViewById(R.id.numBox2);
         numBox3 = findViewById(R.id.numBox3);
@@ -211,17 +212,30 @@ public class CodeVerificationActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-
+                            /*
+                            If this was a sign in to delete the user's account, we want to delete
+                            their account and not just sign them in.
+                             */
                             FirebaseUser user = task.getResult().getUser();
-                            if(user.getDisplayName() == null || user.getDisplayName().isEmpty()){
-                                Intent i = new Intent(numBox1.getContext(), DisplayNameActivity.class);
-                                startActivity(i);
-                            } else { //If the user already has a display name they already have a profile.
-                                Intent i = new Intent(numBox1.getContext(), MainActivity.class);
-                                startActivity(i);
+
+                            if(getIntent().hasExtra("delete")) {
+                                user.delete();
+                                Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
+                                startActivity(intent);
                             }
-                            //I don't like doing this but I don't have a view to get the context of so I'm using numBox1.
+                            else
+                            {
+                                // Sign in success, update UI with the signed-in user's information
+
+                                if(user.getDisplayName() == null || user.getDisplayName().isEmpty()){
+                                    Intent i = new Intent(numBox1.getContext(), DisplayNameActivity.class);
+                                    startActivity(i);
+                                } else { //If the user already has a display name they already have a profile.
+                                    Intent i = new Intent(numBox1.getContext(), MainActivity.class);
+                                    startActivity(i);
+                                }
+                                //I don't like doing this but I don't have a view to get the context of so I'm using numBox1.
+                            }
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

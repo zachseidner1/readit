@@ -34,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
-//            Intent i = new Intent(this, WelcomeActivity.class);
-//            startActivity(i);
-//        }
+        /*if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+            Intent i = new Intent(this, WelcomeActivity.class);
+            startActivity(i);
+        }*/
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);

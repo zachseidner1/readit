@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountActivity">
+
+    <TextView
+        android:id="@+id/accountText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/account"
+        android:textSize="50sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/ic_baseline_account_circle_24"
+        android:layout_below="@+id/accountText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/usernameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/account"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        />
+
+    <TextView
+        android:id="@+id/thanksPlaceholder"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/thanks_placeholder"
+        android:layout_below="@+id/usernameText"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/black"
+        />
+    <Button
+        android:id="@+id/changeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_name"
+        android:drawableLeft="@drawable/ic_white_account_circle_24"
+        android:layout_alignParentBottom="false"
+        android:layout_below="@id/thanksPlaceholder"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:onClick="changeDisplayName"
+        />
+
+    <Button
+        android:id="@+id/deleteAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/changeName"
+        android:backgroundTint="@color/red"
+        android:drawableLeft="@drawable/ic_baseline_remove_circle_outline_24"
+        android:text="@string/delete_account"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:onClick="deleteAccount"/>
+
+
+
+</RelativeLayout>

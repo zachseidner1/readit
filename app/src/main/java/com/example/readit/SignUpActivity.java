@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     Spinner countryCodeSpinner;
     ImageView textBg;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -24,11 +24,16 @@
     <string name="image_button_desc">continue</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="log_out">log out</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="country_codes_array">
         <item>+1, US/CA</item>
         <item>+44, UK</item>
         <item>+86, CHN</item>
         <item>+91, IN</item>
     </string-array>
+    <string name="account">account</string>
+    <string name="settings_lowercase">settings</string>
+    <string name="thanks_placeholder">you have: 🙏 99</string>
+    <string name="delete_account">delete account</string>
+    <string name="change_name">change display name</string>
+    <string name="change_name_colon">change display name:</string>
 </resources>

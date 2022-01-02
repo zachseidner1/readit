@@ -14,8 +14,11 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,14 +28,21 @@ import org.w3c.dom.Text;
 
 public class DisplayNameActivity extends AppCompatActivity {
     EditText displayNameText;
+    TextView prompt;
     private static final String TAG = SignUpActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_display_name);
         displayNameText = findViewById(R.id.displayNameText);
-
+        prompt = findViewById(R.id.displayNamePrompt);
+        if(getIntent().hasExtra("change")) {
+            prompt.setText(R.string.change_name_colon);
+        }
         displayNameText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -77,6 +87,11 @@ public class DisplayNameActivity extends AppCompatActivity {
                             startActivity(i);
                         }
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
