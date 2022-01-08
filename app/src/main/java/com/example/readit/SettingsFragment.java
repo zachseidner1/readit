@@ -2,12 +2,14 @@ package com.example.readit;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -106,13 +108,34 @@ public class SettingsFragment extends Fragment {
                         //TODO Switch to Notifications activity.
                         break;
                     case 2:
-                        //TODO Switch to about activity
+                        Intent intent2 = new Intent(getContext(), AboutActivity.class);
+                        startActivity(intent2);
                         break;
-                    case 3:
-                        //Logout user.
-                        FirebaseAuth.getInstance().signOut();
-                        Intent intent4 = new Intent(getActivity(), WelcomeActivity.class);
-                        startActivity(intent4);
+                    case 3: //Ensure they want to log out of their account. If so, log them out.
+                        assert getActivity() != null;
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Are you sure you want to log out of your account?");
+                        builder.setCancelable(false);
+
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Logout user.
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intent4 = new Intent(getActivity(), WelcomeActivity.class);
+                                startActivity(intent4);
+                            }
+                        });
+
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Do nothing
+                            }
+                        });
+
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
                         break;
                     default:
                         Toast.makeText(getContext(), "An error has occurred. Please try again.", Toast.LENGTH_LONG).show();

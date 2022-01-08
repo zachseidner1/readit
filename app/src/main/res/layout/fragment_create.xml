@@ -3,14 +3,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateFragment">
+    tools:context=".CreateFragment"
+    android:background="@drawable/gradient_background_white">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/newPostTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_create"
+        android:text="@string/make_post"
         android:textSize="30sp"
-        android:layout_centerInParent="true"/>
+        android:fontFamily="@font/roboto_bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/counterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/newPostTitle"
+        android:text="@string/length_placeholder_200"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="100dp"
+        />
+    <EditText
+        android:id="@+id/newPostTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/counterText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rectangle_round_corners_stroke"
+        android:ems="20"
+        android:inputType="textMultiLine"
+        android:maxLength="200"
+        android:lines="2"
+        android:gravity="top|start"
+        android:padding="10dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:hint="@string/add_title"/>
+    <TextView
+        android:id="@+id/counterText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newPostTitleText"
+        android:text="@string/length_placeholder_1000"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="300dp"
+        />
+    <EditText
+        android:id="@+id/newPostText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/counterText2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rectangle_round_corners_stroke"
+        android:ems="20"
+        android:inputType="textMultiLine"
+        android:maxLength="1000"
+        android:lines="12"
+        android:gravity="top|start"
+        android:padding="10dp"
+        android:fontFamily="@font/roboto_regular"
+        android:hint="add body"/>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="@string/next"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:fontFamily="@font/roboto_bold"
+        android:textSize="24sp"
+        android:layout_below="@id/newPostText"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:letterSpacing="0.05"
+        android:clickable="false"/>
 
 </RelativeLayout>

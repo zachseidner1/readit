@@ -38,7 +38,12 @@ public class AccountActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         usernameText = findViewById(R.id.usernameText);
 
-        usernameText.setText(firebaseAuth.getCurrentUser().getDisplayName());
+        if(firebaseAuth.getCurrentUser() != null) {
+            usernameText.setText(firebaseAuth.getCurrentUser().getDisplayName());
+        }
+        else {
+            usernameText.setText(R.string.display_name);
+        }
     }
 
     public void changeDisplayName(View view) {
@@ -124,5 +129,9 @@ public class AccountActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void changeHighSchool(View view) {
+        //TODO switch to change high school activity.
     }
 }

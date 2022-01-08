@@ -56,12 +56,27 @@
         android:text="@string/change_name"
         android:drawableLeft="@drawable/ic_white_account_circle_24"
         android:layout_alignParentBottom="false"
+        android:layout_below="@id/changeHighSchool"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:onClick="changeDisplayName"
+        />
+
+    <Button
+        android:id="@+id/changeHighSchool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_high_school"
+        android:drawableLeft="@drawable/ic_baseline_school_24"
+        android:layout_alignParentBottom="false"
         android:layout_below="@id/thanksPlaceholder"
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
         android:textAllCaps="false"
         android:textSize="20sp"
-        android:onClick="changeDisplayName"
+        android:onClick="changeHighSchool"
         />
 
     <Button
