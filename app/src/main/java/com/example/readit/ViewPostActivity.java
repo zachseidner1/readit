@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -42,6 +43,8 @@ public class ViewPostActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
 
+
+
         if(b!=null)
         {
             String title = (String) b.get("title");
@@ -49,9 +52,11 @@ public class ViewPostActivity extends AppCompatActivity {
             String url = (String) b.get("url");
             tv_postTitle.setText(title);
             tv_post.setText(post);
-            Glide.with(context).load(url).into(iv_postImage);
+            Glide.with(ViewPostActivity.this).load(url).into(iv_postImage); //this line is the problem child of the family
 
         }
+
+
 
         postList = myApplication.getPostList();
         btn_back = findViewById(R.id.btn_backPost);

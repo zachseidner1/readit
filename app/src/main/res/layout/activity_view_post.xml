@@ -18,19 +18,20 @@
 
     <TextView
         android:id="@+id/tv_postTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="243dp"
+        android:layout_height="122dp"
+        android:layout_marginTop="28dp"
         android:text="Title"
-        android:textSize="28sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toEndOf="@+id/iv_postImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_post"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="364dp"
+        android:layout_height="382dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
@@ -40,8 +41,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_thanksPost"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_postImage" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_postImage"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btn_thanksPost"
