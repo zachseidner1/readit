@@ -10,7 +10,7 @@ import java.util.Arrays;
 //This class is used as a global variable so that each activity can access all of the posts, eventually this will be replaced with firebase i think
 public class MyApplication extends Application {
 
-    private static ArrayList<Post> postList = new ArrayList<>();
+    public static ArrayList<Post> postList = new ArrayList<>();
     private static Context sContext;
 
     public MyApplication(){

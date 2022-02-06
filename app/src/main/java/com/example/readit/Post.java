@@ -1,10 +1,28 @@
 package com.example.readit;
 
+import java.util.Comparator;
+
 public class Post {
 
     private String title;
     private String post;
     private String imageURL;
+
+    public static Comparator<Post> PostNameAZComparator = new Comparator<Post>() {
+        @Override
+        public int compare(Post p1, Post p2) {
+            return p1.getTitle().compareTo(p2.getTitle());
+        }
+    };
+
+    public static Comparator<Post> PostNameZAComparator = new Comparator<Post>() {
+        @Override
+        public int compare(Post p1, Post p2) {
+            return p2.getTitle().compareTo(p1.getTitle());
+        }
+    };
+
+
 
     @Override
     public String toString() {

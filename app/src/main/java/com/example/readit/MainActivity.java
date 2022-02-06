@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,10 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    Menu menu;
+    //ArrayList<Post> postList = new ArrayList<>();
 
 
     @Override
@@ -69,4 +74,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.sort_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.menu_aToz:
+                //sort a to z
+                Collections.sort(MyApplication.postList, Post.PostNameAZComparator);
+                FeedFragment.myAdapter.notifyDataSetChanged();      //This line isn't working bcz for some reason I can't find mAdapter anywhere or any adapter named anything its as if I din't create an adapter but i dont think thast's the case
+                Toast.makeText(MainActivity.this, "Sort A to Z", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.menu_zToa:
+                //sort z to a
+                Collections.sort(MyApplication.postList, Post.PostNameZAComparator);
+                FeedFragment.myAdapter.notifyDataSetChanged();
+                Toast.makeText(MainActivity.this, "Sort Z to A", Toast.LENGTH_LONG).show();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
