@@ -30,12 +30,6 @@
     <string name="delete_account">delete account</string>
     <string name="change_name">change display name</string>
     <string name="change_name_colon">change display name:</string>
-    <string-array name="country_codes_array">
-        <item>+1, US/CA</item>
-        <item>+44, UK</item>
-        <item>+86, CHN</item>
-        <item>+91, IN</item>
-    </string-array>
     <string name="about_title">what is readit?</string>
     <string name="about_text">readit is an academic social media platform made for students by
     students. it is a place where students can help others or get help on their own. in each class,
@@ -47,4 +41,47 @@
     <string name="length_placeholder_1000">0/1000</string>
     <string name="add_title">add title</string>
     <string name="next">next</string>
+    <string name="body_hint">add body (optional)</string>
+    <string-array name="country_codes_array">
+        <item>+1, US/CA</item>
+        <item>+44, UK</item>
+        <item>+86, CHN</item>
+        <item>+91, IN</item>
+    </string-array>
+    <string name="choose_class">choose class</string>
+    <string name="settings_title_placeholder">Setting Title</string>
+    <string name="settings_desc_placeholder">Setting Description</string>
+    <string name="send">send post</string>
+    <string name="titleError">post needs a title</string>
+    <string name="tip">tip</string>
+    <string name="question">question</string>
+
+    <!--    TODO delete this string array if it never ends up getting used-->
+    <string-array name="classes">
+<!--        math courses-->
+        <item>algebra I</item>
+        <item>algebra II</item>
+        <item>geometry</item>
+        <item>pre calculus</item>
+        <item>AP calculus AB</item>
+        <item>AP calculus BC</item>
+<!--        history courses-->
+        <item>AP world history</item>
+        <item>AP european history</item>
+        <item>AP US government and politics</item>
+        <item>AP US history</item>
+<!--        english courses-->
+        <item>AP language and composition</item>
+        <item>AP literature and composition</item>
+<!--        science courses-->
+        <item>biology</item>
+        <item>AP biology</item>
+        <item>chemistry</item>
+        <item>AP chemistry</item>
+        <item>physics mechanics</item>
+        <item>physics electricity and magnetism</item>
+        <item>AP physics C</item>
+        <item>AP physics 1</item>
+        <item>AP physics 2</item>
+    </string-array>
 </resources>

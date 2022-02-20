@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PostConfirmationActivity">
+
+<!--Tip or question button selection-->
+    <TextView
+        android:layout_marginTop="2dp"
+        android:id="@+id/selectTypeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="choose post type"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/black"
+        android:textSize="30sp"/>
+    <RadioButton
+        android:layout_marginTop="10dp"
+        android:id="@+id/tipButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tip"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_below="@id/selectTypeText"/>
+    <RadioButton
+        android:layout_marginTop="10dp"
+        android:id="@+id/questionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/question"
+        android:textSize="18sp"
+        android:layout_toRightOf="@id/divider2"
+        android:paddingStart="10dp"
+        android:paddingEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/selectTypeText"/>
+    <View
+        android:layout_toRightOf="@id/tipButton"
+        android:id="@+id/divider2"
+        android:layout_width="2dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/selectTypeText"
+        android:background="@color/gray" />
+
+    <TextView
+        android:id="@+id/classText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider2"
+        android:text="@string/choose_class"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/black"
+        android:textSize="30sp"/>
+
+
+    <LinearLayout
+        android:id="@+id/chooseClassLayout"
+        android:layout_below="@id/classText"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:weightSum="2"
+        android:orientation="vertical">
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="@string/send"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:fontFamily="@font/roboto_bold"
+        android:textSize="24sp"
+        android:layout_below="@id/chooseClassLayout"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:letterSpacing="0.05"
+        android:clickable="false"
+        android:drawableLeft="@drawable/ic_baseline_send_24"/>
+</RelativeLayout>

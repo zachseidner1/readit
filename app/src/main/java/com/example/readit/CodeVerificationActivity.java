@@ -48,6 +48,8 @@ public class CodeVerificationActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         Intent i = getIntent();
+        //TODO make classes selector
+
 
 
         numBox1 = findViewById(R.id.numBox1);

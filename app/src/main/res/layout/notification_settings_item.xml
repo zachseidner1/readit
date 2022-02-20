@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<!--    TODO Right now this is just a placeholder. I'm not sure what notification settings I'll add -->
+<!--    I have to wait for Colin to set up notifications.-->
+    <TextView
+        android:id="@+id/settingsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/settings_title_placeholder"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_desc_placeholder"
+        android:layout_below="@id/settingsTitle"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"/>
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="25dp"
+        android:scaleX="1.5"
+        android:layout_alignParentEnd="true"
+        android:scaleY="1.5"
+
+        />
+
+</RelativeLayout>

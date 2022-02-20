@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Readit">
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".PostConfirmationActivity"></activity>
+        <activity android:name=".AboutActivity" />
         <activity android:name=".NotificationSettingsActivity" />
         <activity android:name=".AccountActivity" />
         <activity android:name=".MainActivity">

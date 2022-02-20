@@ -14,7 +14,7 @@
         android:textSize="30sp"
         android:fontFamily="@font/roboto_bold"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:textColor="@color/black"/>
     <TextView
         android:id="@+id/counterText"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/newPostTitle"
         android:text="@string/length_placeholder_200"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         android:layout_marginStart="100dp"
         />
     <EditText
@@ -71,8 +71,19 @@
         android:gravity="top|start"
         android:padding="10dp"
         android:fontFamily="@font/roboto_regular"
-        android:hint="add body"/>
-
+        android:hint="@string/body_hint"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newPostText"
+        android:id="@+id/errorText"
+        android:layout_marginStart="25dp"
+        android:textColor="@color/red"
+        android:fontFamily="@font/roboto_bold"
+        android:textSize="15sp"
+        android:text="@string/titleError"
+        android:visibility="gone"
+        />
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
@@ -83,10 +94,11 @@
         android:textColor="@color/white"
         android:fontFamily="@font/roboto_bold"
         android:textSize="24sp"
-        android:layout_below="@id/newPostText"
+        android:layout_below="@id/errorText"
         android:layout_marginStart="25dp"
         android:layout_marginTop="5dp"
         android:letterSpacing="0.05"
-        android:clickable="false"/>
+        android:clickable="false"
+        android:drawableLeft="@drawable/ic_baseline_send_24"/>
 
 </RelativeLayout>

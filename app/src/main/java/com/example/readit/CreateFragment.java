@@ -1,12 +1,17 @@
 package com.example.readit;
 
+import android.app.Application;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +20,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.net.Inet4Address;
+
+import static android.content.ContentValues.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CreateFragment#newInstance} factory method to
@@ -22,11 +33,9 @@ import android.widget.TextView;
  */
 public class CreateFragment extends Fragment {
 
-    EditText titleText;
-    EditText postText;
+    EditText titleText, postText;
     Spinner classSpinner;
-    TextView counterText;
-    TextView counterText2;
+    TextView counterText, counterText2, errorText;
     Button submitButton;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -83,10 +92,12 @@ public class CreateFragment extends Fragment {
         postText = getActivity().findViewById(R.id.newPostText);
         counterText = getActivity().findViewById(R.id.counterText);
         counterText2 = getActivity().findViewById(R.id.counterText2);
+        errorText = getActivity().findViewById(R.id.errorText);
         submitButton = getActivity().findViewById(R.id.submitButton);
-        submitButton.setBackgroundColor(Color.GRAY);
+        if(TextUtils.isEmpty(titleText.getText().toString().trim())) {
+            submitButton.setBackgroundColor(Color.GRAY);
+        }
 
-        //Update post text counter and change clickable of "next" button
         postText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -96,14 +107,6 @@ public class CreateFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 int length = charSequence.length();
-                if(length > 0  && titleText.getText().length() > 0) {
-                    submitButton.setClickable(true);
-                    submitButton.setBackgroundColor(Color.parseColor("#4285F4"));
-                }
-                else {
-                    submitButton.setClickable(false);
-                    submitButton.setBackgroundColor(Color.GRAY);
-                }
                 String lengthLimit = length + "/1000";
                 counterText2.setText(lengthLimit);
             }
@@ -114,7 +117,6 @@ public class CreateFragment extends Fragment {
             }
         });
 
-        //Update title text counter and change clickable of "next" button
         titleText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -124,12 +126,13 @@ public class CreateFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 int length = charSequence.length();
-                if(length > 0  && postText.getText().length() > 0) {
-                    submitButton.setClickable(true);
+                if(length > 0  && !TextUtils.isEmpty(titleText.getText().toString().trim())) {
+                    submitButton.setBackgroundColor(Color.BLUE);
                     submitButton.setBackgroundColor(Color.parseColor("#4285F4"));
+                    errorText.setVisibility(View.GONE);
+                    titleText.setBackground(ContextCompat.getDrawable(titleText.getContext(), R.drawable.rectangle_round_corners_stroke));
                 }
                 else {
-                    submitButton.setClickable(false);
                     submitButton.setBackgroundColor(Color.GRAY);
                 }
                 String lengthLimit = length + "/200";
@@ -142,11 +145,25 @@ public class CreateFragment extends Fragment {
             }
         });
 
+        //When the submit button is clicked, go to the confirmation activity
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(submitButton.isClickable()) {
-                    //TODO switch to post submission activity
+                String title = titleText.getText().toString().trim();
+
+                if(!TextUtils.isEmpty(title)) {
+                    String post = postText.getText().toString();
+                    //Launch post confirmation activity
+                    Intent i = new Intent(getContext(), PostConfirmationActivity.class);
+                    i.putExtra("title", title);
+                    i.putExtra("post", post);
+                    startActivity(i);
+                }
+                else {
+                    //Set title border to red
+                    titleText.setBackground(ContextCompat.getDrawable(view.getContext(), R.drawable.rectangle_round_corners_error));
+                    //Show error text
+                    errorText.setVisibility(View.VISIBLE);
                 }
             }
         });
