@@ -30,41 +30,57 @@
 
     <TextView
         android:id="@+id/tv_post"
-        android:layout_width="364dp"
-        android:layout_height="382dp"
+        android:layout_width="341dp"
+        android:layout_height="309dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="60dp"
         android:gravity="center_horizontal"
         android:text="Post"
+        app:layout_constraintBottom_toTopOf="@+id/tv_comment"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_thanksPost"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_postImage"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_postImage" />
 
-    <Button
-        android:id="@+id/btn_thanksPost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="75dp"
-        android:text="Give Thanks"
+
+    <com.like.LikeButton
+        android:id="@+id/thanks_button"
+        android:layout_marginBottom="50dp"
+        android:layout_width="97dp"
+        android:layout_height="32dp"
+        app:icon_size="15dp"
+        app:icon_type="thumb"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_backPost"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/btn_backPost"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_comment"
+        app:layout_constraintVertical_bias="0.518" />
 
     <Button
         android:id="@+id/btn_backPost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="75dp"
+        android:layout_width="104dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="40dp"
         android:text="Go Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_thanksPost" />
+        app:layout_constraintStart_toEndOf="@id/thanks_button" />
+
+    <EditText
+        android:id="@+id/et_comment"
+        android:layout_width="328dp"
+        android:gravity="center_horizontal"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:hint="Comment"
+        app:layout_constraintBottom_toTopOf="@+id/btn_backPost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_post" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

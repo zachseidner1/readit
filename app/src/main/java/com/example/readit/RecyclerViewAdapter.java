@@ -52,6 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 intent.putExtra("title", postList.get(position).getTitle());
                 intent.putExtra("post", postList.get(position).getPost());
                 intent.putExtra("url", postList.get(position).getImageURL());
+                intent.putExtra("question", postList.get(position).getQuestion());
                 context.startActivity(intent);
             }
         });

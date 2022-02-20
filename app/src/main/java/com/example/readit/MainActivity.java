@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_aToz:
                 //sort a to z
                 Collections.sort(MyApplication.postList, Post.PostNameAZComparator);
-                FeedFragment.myAdapter.notifyDataSetChanged();      //This line isn't working bcz for some reason I can't find mAdapter anywhere or any adapter named anything its as if I din't create an adapter but i dont think thast's the case
+                FeedFragment.myAdapter.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this, "Sort A to Z", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menu_zToa:
