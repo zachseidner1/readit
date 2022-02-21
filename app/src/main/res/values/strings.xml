@@ -59,29 +59,60 @@
     <!--    TODO delete this string array if it never ends up getting used-->
     <string-array name="classes">
 <!--        math courses-->
-        <item>algebra I</item>
-        <item>algebra II</item>
-        <item>geometry</item>
-        <item>pre calculus</item>
-        <item>AP calculus AB</item>
-        <item>AP calculus BC</item>
-<!--        history courses-->
+        <item>Algebra I</item>
+        <item>Algebra II</item>
+        <item>Geometry</item>
+        <item>Trigonometry</item>
+        <item>Pre Calculus</item>
+        <item>AP Calculus AB</item>
+        <item>AP Calculus BC</item>
+        <item>Statistics</item>
+<!--        social studies courses-->
         <item>AP world history</item>
         <item>AP european history</item>
         <item>AP US government and politics</item>
         <item>AP US history</item>
+        <item>US history</item>
+        <item>World history</item>
+        <item>European history</item>
+        <item>Political science</item>
 <!--        english courses-->
         <item>AP language and composition</item>
         <item>AP literature and composition</item>
+        <item>American literature</item>
+        <item>British literature</item>
+        <item>Comparative literature</item>
+        <item>Contemporary literature</item>
+        <item>World literature</item>
+        <item>English (9th grade)</item>
+        <item>English (10th grade)</item>
+        <item>English (11th grade)</item>
+        <item>English (12th grade)</item>
+        <item>Creative writing</item>
+        <item>Journalism</item>
+        <item>Rhetoric</item>
+        <item>Composition</item>
+        <item>Poetry</item>
+        <item>Debate</item>
 <!--        science courses-->
-        <item>biology</item>
         <item>AP biology</item>
-        <item>chemistry</item>
         <item>AP chemistry</item>
-        <item>physics mechanics</item>
-        <item>physics electricity and magnetism</item>
+        <item>AP Environmental Science</item>
         <item>AP physics C</item>
         <item>AP physics 1</item>
         <item>AP physics 2</item>
+        <item>Earth science</item>
+        <item>Physical science</item>
+        <item>Biology</item>
+        <item>Chemistry</item>
+        <item>Organic chemistry</item>
+        <item>Physics</item>
+        <item>Life science</item>
+        <item>Environmental science</item>
+        <item>Astronomy</item>
+        <item>Zoology</item>
+        <item>Oceanography</item>
+        <item>Forensic science</item>
+        <item>Botany</item>
     </string-array>
 </resources>

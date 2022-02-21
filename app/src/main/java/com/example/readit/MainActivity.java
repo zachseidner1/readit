@@ -3,25 +3,16 @@ package com.example.readit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new FeedFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new ClassBrowserFragment()).commit();
 
         bottomNavigationView.setSelectedItemId(R.id.navigation_feed);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -55,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch(item.getItemId()){
                     case R.id.navigation_feed:
-                        fragment = new FeedFragment();
+                        fragment = new ClassBrowserFragment();
                         break;
                     case R.id.navigation_new:
                         fragment = new CreateFragment();
@@ -88,13 +79,13 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_aToz:
                 //sort a to z
                 Collections.sort(MyApplication.postList, Post.PostNameAZComparator);
-                FeedFragment.myAdapter.notifyDataSetChanged();
+                ClassBrowserFragment.myAdapter.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this, "Sort A to Z", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menu_zToa:
                 //sort z to a
                 Collections.sort(MyApplication.postList, Post.PostNameZAComparator);
-                FeedFragment.myAdapter.notifyDataSetChanged();
+                ClassBrowserFragment.myAdapter.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this, "Sort Z to A", Toast.LENGTH_LONG).show();
                 return true;
         }
