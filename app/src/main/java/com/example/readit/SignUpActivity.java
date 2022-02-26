@@ -107,7 +107,7 @@ public class SignUpActivity extends AppCompatActivity {
                             .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
                             .build();
 
-            PhoneAuthProvider.verifyPhoneNumber(options); //TODO generate options
+            PhoneAuthProvider.verifyPhoneNumber(options);
             
             } else { //Prompt the user to update Google Play Services
                 textBg.setBackground(ContextCompat.getDrawable(this, R.drawable.rectangle_round_corners_error));
@@ -116,10 +116,20 @@ public class SignUpActivity extends AppCompatActivity {
 
         }
 
+    /**
+     * This function ensures the phone number the user types in is only digits and 10 characters long.
+     * Then its validity as a phone number will go on to be checked by Firebase.
+     *
+     * @param phoneNumber This is the phone number that the user has inputted.
+     * @return boolean This is whether or not the phone number is exactly 10 digits.
+     */
     public static boolean isValidNumber(String phoneNumber){
-        Pattern pattern = Pattern.compile("^\\d{10}$");
-        Matcher matcher = pattern.matcher("2055550125");
-        return  matcher.matches() && phoneNumber.length() == 10;
+        for (int i = 0; i < phoneNumber.length(); i++) {
+            if(!Character.isDigit(phoneNumber.charAt(i))){
+                return false;
+            }
+        }
+        return  phoneNumber.length() == 10; //even if the phone number is all digits, still needs to be 10 long.
     }
 
 }

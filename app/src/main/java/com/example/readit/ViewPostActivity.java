@@ -25,7 +25,7 @@ public class ViewPostActivity extends AppCompatActivity {
 
     Button btn_back;
     ArrayList<Post> postList;
-    MyApplication myApplication = (MyApplication) this.getApplication();
+//    MyApplication myApplication = (MyApplication) this.getApplication();
     TextView tv_postTitle;
     TextView tv_post;
     EditText et_comment;
@@ -70,7 +70,7 @@ public class ViewPostActivity extends AppCompatActivity {
 
 
 
-        postList = myApplication.getPostList();
+//        postList = myApplication.getPostList();
         btn_back = findViewById(R.id.btn_backPost);
 
 

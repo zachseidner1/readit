@@ -26,7 +26,7 @@
     <string name="log_out">log out</string>
     <string name="account">account</string>
     <string name="settings_lowercase">settings</string>
-    <string name="thanks_placeholder">you have: 🙏 99</string>
+    <string name="thanks_placeholder">you have: 🙏 </string>
     <string name="delete_account">delete account</string>
     <string name="change_name">change display name</string>
     <string name="change_name_colon">change display name:</string>
@@ -42,12 +42,6 @@
     <string name="add_title">add title</string>
     <string name="next">next</string>
     <string name="body_hint">add body (optional)</string>
-    <string-array name="country_codes_array">
-        <item>+1, US/CA</item>
-        <item>+44, UK</item>
-        <item>+86, CHN</item>
-        <item>+91, IN</item>
-    </string-array>
     <string name="choose_class">choose class</string>
     <string name="settings_title_placeholder">Setting Title</string>
     <string name="settings_desc_placeholder">Setting Description</string>
@@ -55,10 +49,25 @@
     <string name="titleError">post needs a title</string>
     <string name="tip">tip</string>
     <string name="question">question</string>
+    <string name="change"><u>change</u></string>
+    <string name="title_activity_choose_high_school">ChooseHighSchoolActivity</string>
+    <string name="show_school">make your high school visible in post</string>
+
 
     <!--    TODO delete this string array if it never ends up getting used-->
+    <string name="hello_world">Hello Square World!</string>
+    <string-array name="country_codes_array">
+        <item>+1, US/CA</item>
+        <item>+44, UK</item>
+        <item>+86, CHN</item>
+        <item>+91, IN</item>
+    </string-array>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
     <string-array name="classes">
-<!--        math courses-->
+        <!--        math courses-->
         <item>Algebra I</item>
         <item>Algebra II</item>
         <item>Geometry</item>
@@ -67,7 +76,7 @@
         <item>AP Calculus AB</item>
         <item>AP Calculus BC</item>
         <item>Statistics</item>
-<!--        social studies courses-->
+        <!--        social studies courses-->
         <item>AP world history</item>
         <item>AP european history</item>
         <item>AP US government and politics</item>
@@ -76,7 +85,7 @@
         <item>World history</item>
         <item>European history</item>
         <item>Political science</item>
-<!--        english courses-->
+        <!--        english courses-->
         <item>AP language and composition</item>
         <item>AP literature and composition</item>
         <item>American literature</item>
@@ -94,7 +103,7 @@
         <item>Composition</item>
         <item>Poetry</item>
         <item>Debate</item>
-<!--        science courses-->
+        <!--        science courses-->
         <item>AP biology</item>
         <item>AP chemistry</item>
         <item>AP Environmental Science</item>
@@ -114,5 +123,84 @@
         <item>Oceanography</item>
         <item>Forensic science</item>
         <item>Botany</item>
+    </string-array>
+
+    <string-array name="highSchools">
+        <item>Abington Friends School</item>
+        <item>Abington Jhs</item>
+        <item>Abington Shs</item>
+        <item>Academy Of The New Church Boys School</item>
+        <item>Agora Cyber Cs</item>
+        <item>Aim Academy</item>
+        <item>Arcola Intrmd School</item>
+        <item>Bishop Mcdevitt High School</item>
+        <item>Boyertown Area Jhs-east</item>
+        <item>Central Montco Technical High School</item>
+        <item>Cheltenham High School</item>
+        <item>Christopher Dock Mennonite High School</item>
+        <item>Coventry Christian Schools</item>
+        <item>Eastern Center For Arts &amp; Technology</item>
+        <item>Friends Central School</item>
+        <item>Germantown Academy</item>
+        <item>Gwynedd Mercy Academy High School</item>
+        <item>Harriton Shs</item>
+        <item>Hatboro-horsham Shs</item>
+        <item>Huntingdon Valley Christian Academy</item>
+        <item>I S Kosloff Torah Academy High School For Girls</item>
+        <item>Indian Creek Mennonite School</item>
+        <item>Jenkintown Middle/high School</item>
+        <item>La Salle College High School</item>
+        <item>Lansdale Catholic High School</item>
+        <item>Lower Merion High School</item>
+        <item>Lower Moreland High School</item>
+        <item>Martin Luther School</item>
+        <item>Merion Mercy Academy</item>
+        <item>Methacton High School</item>
+        <item>Milagre Kids School</item>
+        <item>Mount St Joseph Academy</item>
+        <item>Nexus School</item>
+        <item>Norristown Area High School</item>
+        <item>North Montco Tech Career Center</item>
+        <item>North Penn Shs</item>
+        <item>Our Lady Of Confidence</item>
+        <item>Penn View Christian School</item>
+        <item>Pennbrook Ms</item>
+        <item>Penndale Ms</item>
+        <item>Pennfield Ms</item>
+        <item>Pennsylvania Virtual Cs</item>
+        <item>Perkiomen School</item>
+        <item>Perkiomen Valley High School</item>
+        <item>Philadelphia-montgomery Christian Academy</item>
+        <item>Plymouth-whitemarsh Shs</item>
+        <item>Pope John Paul Ii High School</item>
+        <item>Pottsgrove Shs</item>
+        <item>Pottstown Shs</item>
+        <item>Roosevelt Altern School</item>
+        <item>Souderton Area Shs</item>
+        <item>Spring-ford Ms 7th Grade Center</item>
+        <item>Spring-ford Ms 8th Grade Center</item>
+        <item>Spring–ford Shs 9—12 Center</item>
+        <item>Springfield Twp High School</item>
+        <item>St Basil Academy</item>
+        <item>St Gabriels Hall</item>
+        <item>The Baldwin School</item>
+        <item>The Haverford School</item>
+        <item>The Hill School</item>
+        <item>The Pathway School</item>
+        <item>The Quaker School At Horsham</item>
+        <item>The Shipley School</item>
+        <item>Upper Dublin High School</item>
+        <item>Upper Merion High School</item>
+        <item>Upper Moreland High School</item>
+        <item>Upper Perkiomen High School</item>
+        <item>Valley Forge Baptist Academy</item>
+        <item>Vantage Academy</item>
+        <item>Vantage Academy At Upper Merion</item>
+        <item>Villa</item>
+        <item>Wayside Christian School</item>
+        <item>Western Montgomery Ctc</item>
+        <item>Wissahickon Shs</item>
+        <item>Wordsworth Academy</item>
+        <item>Wyncote Academy</item>
     </string-array>
 </resources>

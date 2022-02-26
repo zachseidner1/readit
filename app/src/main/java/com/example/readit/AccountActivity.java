@@ -18,15 +18,21 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.concurrent.TimeUnit;
 
 public class AccountActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
-    TextView usernameText;
+    FirebaseFirestore db;
+    TextView usernameText, thanksText;
     private static final String TAG = AccountActivity.class.getCanonicalName();
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
@@ -36,12 +42,39 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         usernameText = findViewById(R.id.usernameText);
+        thanksText = findViewById(R.id.thanksPlaceholder);
 
-        if(firebaseAuth.getCurrentUser() != null) {
-            usernameText.setText(firebaseAuth.getCurrentUser().getDisplayName());
+        if (getIntent().hasExtra("message")) {
+            Toast.makeText(this, getIntent().getStringExtra("message"), Toast.LENGTH_SHORT).show();
         }
-        else {
+        if (firebaseAuth.getCurrentUser() != null) {
+            //Set the username text to their username:
+            usernameText.setText(firebaseAuth.getCurrentUser().getDisplayName());
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            //Set the thanks text to show their thanks:
+            DocumentReference docRef = db.collection("UserData").document(user.getUid());
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            UserData data = document.toObject(UserData.class);
+                            int thanks = data.getThanks();
+                            String userThanks = getResources().getString(R.string.thanks_placeholder) + thanks;
+                            thanksText.setText(userThanks);
+                        } else {
+                            Log.d(TAG, "No such document");
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                }
+            });
+
+        } else {
             usernameText.setText(R.string.display_name);
         }
     }
@@ -57,7 +90,7 @@ public class AccountActivity extends AppCompatActivity {
         builder.setMessage("Are you sure you want to do this? This action cannot be undone.");
         builder.setCancelable(false);
 
-        builder.setPositiveButton (
+        builder.setPositiveButton(
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -132,6 +165,12 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public void changeHighSchool(View view) {
-        //TODO switch to change high school activity.
+        Intent i = new Intent(this, ChooseHighSchoolActivity.class);
+        startActivity(i);
+    }
+
+    public void goBack(View view) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 }

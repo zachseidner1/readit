@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".AccountActivity">
 
+
+
     <TextView
         android:id="@+id/accountText"
         android:layout_width="match_parent"
@@ -34,6 +36,7 @@
         android:text="@string/account"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/gray"
         android:textSize="30sp"
         />
 
@@ -93,6 +96,14 @@
         android:textSize="20sp"
         android:onClick="deleteAccount"/>
 
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="7.5dp"
+        android:onClick="goBack"/>
 
 
 </RelativeLayout>

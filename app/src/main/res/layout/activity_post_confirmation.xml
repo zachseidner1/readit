@@ -72,11 +72,49 @@
 
         <SearchView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/searchBar"/>
         <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/classList"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/classText"
+        android:id="@+id/selectedClassText"
+        android:text="selected class: "
+        android:fontFamily="@font/roboto_regular"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:visibility="gone"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Biology"
+        android:layout_toRightOf="@id/selectedClassText"
+        android:id="@+id/chosenClassText"
+        android:layout_below="@id/classText"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:visibility="gone"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change"
+        android:layout_below="@+id/selectedClassText"
+        android:textColor="@color/blue"
+        android:layout_marginStart="15dp"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:id="@+id/changeClassText"
+        android:clickable="true"
+        android:focusable="true" />
+
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
@@ -87,10 +125,53 @@
         android:textColor="@color/white"
         android:fontFamily="@font/roboto_bold"
         android:textSize="24sp"
-        android:layout_below="@id/chooseClassLayout"
+        android:layout_below="@id/checkbox"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:letterSpacing="0.05"
         android:clickable="false"
-        android:drawableLeft="@drawable/ic_baseline_send_24"/>
+        android:drawableLeft="@drawable/ic_baseline_send_24"
+        android:onClick="onSubmit"/>
+
+    <CheckBox
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chooseClassLayout"
+        android:id="@+id/checkbox"
+        android:layout_marginStart="4dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_school"
+        android:layout_below="@id/chooseClassLayout"
+        android:layout_toRightOf="@id/checkbox"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"/>
+
+    <ImageView
+        android:id="@+id/errorIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_baseline_info_red_24"
+        android:layout_below="@id/submitButton"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:visibility="invisible"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:id="@+id/errorText"
+        android:layout_toRightOf="@id/errorIcon"
+        android:layout_below="@id/submitButton"
+        android:textSize="18sp"
+        android:fontFamily="@font/roboto_regular"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"
+        />
+
+
 </RelativeLayout>

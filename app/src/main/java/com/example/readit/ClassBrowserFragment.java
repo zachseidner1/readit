@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,9 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +40,7 @@ public class ClassBrowserFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public static RecyclerViewAdapter myAdapter;
+//    public static RecyclerViewAdapter myAdapter;
 
 
     public ClassBrowserFragment() {
@@ -92,17 +96,118 @@ public class ClassBrowserFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                adapter.getFilter().filter(s);
-                listView.setAdapter(adapter);
+                applyCustomFilter(adapter, s, listView);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                adapter.getFilter().filter(s);
-                listView.setAdapter(adapter);
+                applyCustomFilter(adapter, s, listView);
                 return false;
             }
         });
+    }
+
+    /**
+     * This function allows for a custom filter to make searching more convenient for the user.
+     * For example when the user types "math", it will show them all the math classes, even if those
+     * classes don't have the word "math" in them.
+     *
+     * @param adapter This is the default adapter before custom filtering
+     * @param s This is the user's inputted string that filters the array
+     * @param listView This is the listView that the filter gets applied to
+     * @return Nothing.
+     */
+    public void applyCustomFilter(ArrayAdapter adapter, String s, ListView listView){
+        switch(s.toLowerCase().trim()) {
+            case "math":
+                String[] mathClasses = {
+                        "Algebra I",
+                        "Algebra II",
+                        "Geometry",
+                        "Trigonometry",
+                        "Pre Calculus",
+                        "AP Calculus AB",
+                        "AP Calculus BC",
+                        "Statistics"
+                };
+                Arrays.sort(mathClasses);
+                adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, mathClasses);
+                listView.setAdapter(adapter);
+                break;
+            case "english":
+            case "language arts":
+                String[] englishClasses = new String[] {
+                        "AP language and composition",
+                        "AP literature and composition",
+                        "American literature",
+                        "British literature",
+                        "Comparative literature",
+                        "Contemporary literature",
+                        "World literature",
+                        "English (9th grade)",
+                        "English (10th grade)",
+                        "English (11th grade)",
+                        "English (12th grade)",
+                        "Creative writing",
+                        "Journalism",
+                        "Rhetoric",
+                        "Composition",
+                        "Poetry",
+                        "Debate"
+                };
+                Arrays.sort(englishClasses);
+                adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, englishClasses);
+                listView.setAdapter(adapter);
+                break;
+            case "history":
+            case "social studies":
+                String[] socialStudiesClasses = new String[] {
+                        "AP world history",
+                        "AP european history",
+                        "AP US government and politics",
+                        "AP US history",
+                        "US history",
+                        "World history",
+                        "European history",
+                        "Political science"
+                };
+                Arrays.sort(socialStudiesClasses);
+                adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, socialStudiesClasses);
+                listView.setAdapter(adapter);
+                break;
+            case "science":
+                String[] scienceClasses = new String[] {
+                        "AP biology",
+                        "AP chemistry",
+                        "AP Environmental Science",
+                        "AP physics C",
+                        "AP physics 1",
+                        "AP physics 2",
+                        "Earth science",
+                        "Physical science",
+                        "Biology",
+                        "Chemistry",
+                        "Organic chemistry",
+                        "Physics",
+                        "Life science",
+                        "Environmental science",
+                        "Astronomy",
+                        "Zoology",
+                        "Oceanography",
+                        "Forensic science",
+                        "Botany",
+                        "Political science"
+                };
+                Arrays.sort(scienceClasses);
+                adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, scienceClasses);
+                listView.setAdapter(adapter);
+                break;
+            default:
+                //Debug statement below:
+//                Log.d(TAG, "applyCustomFilter: " + s.toLowerCase().trim());
+                adapter.getFilter().filter(s);
+                listView.setAdapter(adapter);
+        }
     }
 }

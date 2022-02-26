@@ -23,19 +23,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Text;
 
 public class DisplayNameActivity extends AppCompatActivity {
     EditText displayNameText;
-    TextView prompt;
+    TextView prompt, thanksPlaceHolder;
+
     private static final String TAG = SignUpActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        
 
         setContentView(R.layout.activity_display_name);
         displayNameText = findViewById(R.id.displayNameText);
@@ -83,6 +85,7 @@ public class DisplayNameActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "User profile updated.");
+
                             Intent i = new Intent(getBaseContext(), MainActivity.class);
                             startActivity(i);
                         }

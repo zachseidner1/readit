@@ -1,16 +1,53 @@
 package com.example.readit;
 
 import java.util.Comparator;
+import java.util.UUID;
 
 public class Post {
 
     private String title;
     private String post;
-    private String imageURL;
     private String course;
-    private String userID;
+    private String uid;
     private boolean question;
+    private int thanks;
+    private UUID postId;
+    private String highSchool;
     //call it class in the app //add a subtitle to the layout item xml thing //store firebase // on all of the posts make sure to use strings.xml for like the class names and stuff //add some more history courses like honors history and normal history and stuff blah blah blah //tie each post to an account somehow (add 'private String userID' as a field) and then the thanks will just be an int or something
+
+    public Post(String title, String post, String course, String highSchool, boolean question, String uid) {
+        this.title = title;
+        this.post = post;
+        this.course = course;
+        this.uid = uid;
+        this.question = question;
+        this.postId = UUID.randomUUID();
+        this.highSchool = highSchool;
+    }
+
+    public String getHighSchool() {
+        return highSchool;
+    }
+
+    public void setHighSchool(String highSchool) {
+        this.highSchool = highSchool;
+    }
+
+    public int getThanks() {
+        return thanks;
+    }
+
+    public void setThanks(int thanks) {
+        this.thanks = thanks;
+    }
+
+    public UUID getPostId() {
+        return postId;
+    }
+
+    public void setPostId(UUID postId) {
+        this.postId = postId;
+    }
 
     public static Comparator<Post> PostNameAZComparator = new Comparator<Post>() {
         @Override
@@ -31,9 +68,8 @@ public class Post {
         return "Post{" +
                 "title='" + title + '\'' +
                 ", post='" + post + '\'' +
-                ", imageURL='" + imageURL + '\'' +
                 ", class='" + course + '\'' +
-                ", class='" + userID + '\'' +
+                ", class='" + uid + '\'' +
                 ", class='" + question + '\'' +
                 '}';
     }
@@ -54,36 +90,23 @@ public class Post {
         this.post = post;
     }
 
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
     public String getCourse() {
         return course;
     }
 
     public void setCourse(String course) { this.course = course; }
 
-    public String getUserID() {
-        return userID;
+    public String getUid() {
+        return uid;
     }
 
-    public void setUserID(String userID) { this.userID = userID; }
+    public void setUid(String uid) { this.uid = uid; }
 
     public boolean getQuestion() { return  question; }
 
     public void setQuestion(boolean question) { this.question = question; }
 
-    public Post(String title, String post, String imageURL, String course, String userID, boolean question) {
-        this.title = title;
-        this.post = post;
-        this.imageURL = imageURL;
-        this.course = course;
-        this.userID = userID;
-        this.question = question;
+    public Post() {
+
     }
 }

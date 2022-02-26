@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,7 @@ public class CodeVerificationActivity extends AppCompatActivity {
     EditText numBox4;
     EditText numBox5;
     EditText numBox6;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     boolean ignoreNextTextChange = false;
 
@@ -227,7 +229,15 @@ public class CodeVerificationActivity extends AppCompatActivity {
                             }
                             else
                             {
-                                // Sign in success, update UI with the signed-in user's information
+                                // Sign in success, update UI with the signed-in user's information and begin storing data
+
+                                //Start storing user data if it is a new account:
+                                if(user.getDisplayName() == null) {
+                                    Log.d(TAG, "onComplete: this ran " + user.getUid());
+                                    UserData data = new UserData(user.getUid());
+                                    db.collection("UserData").document(user.getUid()).set(data);
+                                }
+
 
                                 if(user.getDisplayName() == null || user.getDisplayName().isEmpty()){
                                     Intent i = new Intent(numBox1.getContext(), DisplayNameActivity.class);
