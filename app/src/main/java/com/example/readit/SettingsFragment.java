@@ -105,11 +105,12 @@ public class SettingsFragment extends Fragment {
                         startActivity(intent1);
                         break;
                     case 1:
-                        //TODO Switch to Notifications activity.
+                        Intent intent2 = new Intent(getContext(), NotificationSettingsActivity.class);
+                        startActivity(intent2);
                         break;
                     case 2:
-                        Intent intent2 = new Intent(getContext(), AboutActivity.class);
-                        startActivity(intent2);
+                        Intent intent3 = new Intent(getContext(), AboutActivity.class);
+                        startActivity(intent3);
                         break;
                     case 3: //Ensure they want to log out of their account. If so, log them out.
                         assert getActivity() != null;

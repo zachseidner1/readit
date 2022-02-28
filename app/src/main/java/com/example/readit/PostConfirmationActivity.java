@@ -38,6 +38,7 @@ public class PostConfirmationActivity extends AppCompatActivity {
     CheckBox includeHighSchool;
     boolean isQuestion, typeSelected, courseError, typeError, canSubmit = true;
     FirebaseFirestore db;
+    private final static String TAG = "PostConfirmationActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +55,12 @@ public class PostConfirmationActivity extends AppCompatActivity {
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //Only one is allowed to be selected, so if one is selected deselect the other:
-
         tip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isQuestion = false;
                 if(question.isChecked()){
                     question.setChecked(false);
-                    isQuestion = false;
                 }
 
                 typeSelected = true;
@@ -75,9 +75,9 @@ public class PostConfirmationActivity extends AppCompatActivity {
         question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isQuestion = true;
                 if(tip.isChecked()){
                     tip.setChecked(false);
-                    isQuestion = true;
                     typeError = false;
                 }
                 typeSelected = true;
@@ -86,6 +86,7 @@ public class PostConfirmationActivity extends AppCompatActivity {
                     errorIcon.setVisibility(View.INVISIBLE);
                     typeError = false;
                 }
+                Log.d(TAG, "onSubmit: " + isQuestion);
             }
         });
 
@@ -299,6 +300,8 @@ public class PostConfirmationActivity extends AppCompatActivity {
                                 highSchool = userData.getHighSchool();
                             }
                         });
+                    } else {
+                        highSchool = null;
                     }
 
                     //We have whether or not it is a question in isQuestion.

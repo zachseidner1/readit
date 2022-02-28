@@ -1,7 +1,6 @@
 package com.example.readit;
 
 import java.util.Comparator;
-import java.util.UUID;
 
 public class Post {
 
@@ -11,9 +10,12 @@ public class Post {
     private String uid;
     private boolean question;
     private int thanks;
-    private UUID postId;
+    private int postId;
+    private int comments;
     private String highSchool;
     //call it class in the app //add a subtitle to the layout item xml thing //store firebase // on all of the posts make sure to use strings.xml for like the class names and stuff //add some more history courses like honors history and normal history and stuff blah blah blah //tie each post to an account somehow (add 'private String userID' as a field) and then the thanks will just be an int or something
+
+
 
     public Post(String title, String post, String course, String highSchool, boolean question, String uid) {
         this.title = title;
@@ -21,8 +23,21 @@ public class Post {
         this.course = course;
         this.uid = uid;
         this.question = question;
-        this.postId = UUID.randomUUID();
+        this.postId = (int) Math.floor(Math.random() * Integer.MAX_VALUE);
         this.highSchool = highSchool;
+        this.comments = 0;
+        this.thanks = 0;
+    }
+    public  Post(){
+
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
     }
 
     public String getHighSchool() {
@@ -41,11 +56,11 @@ public class Post {
         this.thanks = thanks;
     }
 
-    public UUID getPostId() {
+    public int getPostId() {
         return postId;
     }
 
-    public void setPostId(UUID postId) {
+    public void setPostId(int postId) {
         this.postId = postId;
     }
 
@@ -69,10 +84,11 @@ public class Post {
                 "title='" + title + '\'' +
                 ", post='" + post + '\'' +
                 ", class='" + course + '\'' +
-                ", class='" + uid + '\'' +
-                ", class='" + question + '\'' +
+                ", uid='" + uid + '\'' +
+                ", question='" + question + '\'' +
                 '}';
     }
+
 
     public String getTitle() {
         return title;
@@ -106,7 +122,4 @@ public class Post {
 
     public void setQuestion(boolean question) { this.question = question; }
 
-    public Post() {
-
-    }
 }

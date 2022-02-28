@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,10 +23,12 @@ public class MainActivity extends AppCompatActivity  {
     BottomNavigationView bottomNavigationView;
     Menu menu;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if(getIntent().hasExtra("message")) {
             Toast.makeText(this, getIntent().getStringExtra("message"), Toast.LENGTH_SHORT).show();
         }
@@ -62,7 +65,6 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             }
         });
-
     }
 
     @Override

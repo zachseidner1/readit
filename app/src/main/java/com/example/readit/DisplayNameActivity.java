@@ -19,29 +19,37 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 import org.w3c.dom.Text;
 
 public class DisplayNameActivity extends AppCompatActivity {
     EditText displayNameText;
     TextView prompt, thanksPlaceHolder;
+    FirebaseFirestore db;
+
 
     private static final String TAG = SignUpActivity.class.getCanonicalName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = FirebaseFirestore.getInstance();
 
-        
-
+        //Initialize variables
         setContentView(R.layout.activity_display_name);
         displayNameText = findViewById(R.id.displayNameText);
         prompt = findViewById(R.id.displayNamePrompt);
+
+
         if(getIntent().hasExtra("change")) {
             prompt.setText(R.string.change_name_colon);
         }
@@ -75,10 +83,21 @@ public class DisplayNameActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        //Store username in UserData:
+        DocumentReference docRef = db.collection("UserData").document(user.getUid());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                UserData userData = documentSnapshot.toObject(UserData.class);
+                userData.setUsername(name);
+                db.collection("UserData").document(user.getUid()).set(userData);
+            }
+        });
+
+
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(name)
                 .build();
-
         user.updateProfile(profileUpdates)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

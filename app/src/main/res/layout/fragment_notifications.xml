@@ -3,14 +3,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/notificationsLayout"
     tools:context=".NotificationsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/notificationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_notifications"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"/>
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:id="@+id/browseClassLayout"
+        android:layout_below="@id/notificationText"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:weightSum="2"
+        android:orientation="vertical">
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchBar"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/notificationList"/>
+    </LinearLayout>
 
 </RelativeLayout>

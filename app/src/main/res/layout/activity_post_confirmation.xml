@@ -12,7 +12,7 @@
         android:id="@+id/selectTypeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="choose post type"
+        android:text="@string/choose_post"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/roboto_bold"
         android:textColor="@color/black"

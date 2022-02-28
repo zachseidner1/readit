@@ -4,12 +4,8 @@ public class UserData {
     private String uid;
     private String highSchool;
     private int thanks;
+    private String username;
 
-    public UserData(String uid, String highSchool, int thanks) {
-        this.uid = uid;
-        this.highSchool = highSchool;
-        this.thanks = thanks;
-    }
     public UserData(String uid){
         this.highSchool = null;
         this.thanks = 0;
@@ -20,6 +16,14 @@ public class UserData {
         this.highSchool = null;
         this.thanks = 0;
         this.uid = null;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getUid() {
