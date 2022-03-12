@@ -1,23 +1,20 @@
 package com.example.readit;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import androidx.fragment.app.Fragment;
 
-import static android.content.ContentValues.TAG;
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +26,9 @@ public class ClassBrowserFragment extends Fragment {
     ListView listView;
     SearchView searchView;
     ArrayAdapter adapter;
+    String classPicked;
+    private static Context context;
+    private static final String TAG = "ClassBrowserFragment";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,6 +65,7 @@ public class ClassBrowserFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +94,18 @@ public class ClassBrowserFragment extends Fragment {
             listView.setAdapter(adapter);
         }
 
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                classPicked = (String) listView.getItemAtPosition(i);
+                Log.d(TAG, "something different" + classPicked);
+                Intent intent = new Intent(Test.getContext(), ClassFeedActivity.class);
+                intent.putExtra("classPicked", classPicked);
+                startActivity(intent);
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -107,6 +120,11 @@ public class ClassBrowserFragment extends Fragment {
             }
         });
     }
+
+
+
+
+
 
     /**
      * This function allows for a custom filter to make searching more convenient for the user.

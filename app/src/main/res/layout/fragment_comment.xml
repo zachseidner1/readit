@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CommentFragment">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="click a post to give it thanks!" />
+
+    <EditText
+        android:id="@+id/et_comment"
+        android:layout_width="310dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_below="@id/text"
+        android:gravity="center_horizontal"
+        android:background="@drawable/rectangle_round_corners_stroke"
+        android:hint="leave comment" />
+
+    <Button
+        android:id="@+id/submitCommentButton"
+        android:layout_width="48dp"
+        android:layout_below="@id/text"
+        android:layout_height="47dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="24dp"
+        android:clickable="false"
+        android:drawableLeft="@drawable/ic_baseline_send_24"
+        android:fontFamily="@font/roboto_bold"
+        android:letterSpacing="0.05"
+        android:padding="15dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:layout_toRightOf="@id/et_comment"
+        android:textSize="18sp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_below="@id/et_comment"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:divider="@color/black"
+        android:dividerHeight="2dp"
+        android:background="@drawable/rectangle_round_corners_stroke"
+        android:id="@+id/lv_comment"/>
+
+
+</RelativeLayout>

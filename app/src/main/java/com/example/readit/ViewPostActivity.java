@@ -1,20 +1,22 @@
 package com.example.readit;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
-import org.w3c.dom.Text;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -23,65 +25,114 @@ import java.util.ArrayList;
 
 public class ViewPostActivity extends AppCompatActivity {
 
-    Button btn_back;
-    ArrayList<Post> postList;
-//    MyApplication myApplication = (MyApplication) this.getApplication();
-    TextView tv_postTitle;
-    TextView tv_post;
-    EditText et_comment;
-    ImageView iv_postImage;
-    Context context;
+    TextView textView;
+    boolean canComment;
+    FirebaseAuth auth;
+    ViewPager2 viewPager2;
+    Post post;
+    CollectionReference commentRef;
+    PagerAdapter pagerAdapter;
+    ArrayAdapter adapter;
+    FirebaseFirestore db;
+    PostFragment fragment = new PostFragment();
+    int postId;
+    TabLayout tabLayout;
+    CollectionReference postRef;
+    ArrayList<Comment> comments = new ArrayList<>();
+    ArrayList<String> commentsTitle = new ArrayList<>();
+    private static final String TAG = "ViewPostActivity";
 
 
-
+    //just like move all of this stuff over to the individual fragments and use this tutorial to help with tying it all together, i don't feel like working on this anymore but I think I have a solid plan moving forward.
+    //tutorial link https://www.youtube.com/watch?v=SUvzMjDYg80
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_post);
-
-        tv_postTitle = findViewById(R.id.tv_postTitle);
-        tv_post = findViewById(R.id.tv_post);
-        et_comment = findViewById(R.id.et_comment);
-        iv_postImage = findViewById(R.id.iv_postImage);
-
+        auth = FirebaseAuth.getInstance();
+        viewPager2 = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
+        canComment = true;
+        FragmentManager fm = getSupportFragmentManager();
+        db = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
-        Bundle b = intent.getExtras();
+        postId = intent.getIntExtra("postPicked", 0);
+        postRef = db.collection("Posts");
 
 
-
-        if(b!=null)
-        {
-            String title = (String) b.get("title");
-            String post = (String) b.get("post");
-            String url = (String) b.get("url");
-            boolean question = (boolean) b.get("question");
-            tv_postTitle.setText(title);
-            tv_post.setText(post);
-            Glide.with(ViewPostActivity.this).load(url).into(iv_postImage);
-            if(question)
-            {
-                et_comment.setVisibility(View.VISIBLE);
-            }
-            else
-                et_comment.setVisibility(View.INVISIBLE);
-
-        }
+        postRef.get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            if (documentSnapshot.exists()) {
+                                if (documentSnapshot.get("postId").toString().equals("" + postId)) {
+                                    post = documentSnapshot.toObject(Post.class);
+                                }
+                            }
+                        }
+                        if (post.getQuestion()) {
 
 
+                            pagerAdapter = new PagerAdapter(fm, getLifecycle());
+                            viewPager2.setAdapter(pagerAdapter);
+                            tabLayout.addTab(tabLayout.newTab().setText("post"));
+                            tabLayout.addTab(tabLayout.newTab().setText("comments"));
 
-//        postList = myApplication.getPostList();
-        btn_back = findViewById(R.id.btn_backPost);
+                            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                                @Override
+                                public void onTabSelected(TabLayout.Tab tab) {
+                                    viewPager2.setCurrentItem(tab.getPosition());
+
+                                }
+
+                                @Override
+                                public void onTabUnselected(TabLayout.Tab tab) {
+
+                                }
+
+                                @Override
+                                public void onTabReselected(TabLayout.Tab tab) {
+
+                                }
+                            });
 
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ViewPostActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+                            viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                                @Override
+                                public void onPageSelected(int position){
+                                    tabLayout.selectTab(tabLayout.getTabAt(position));
+                                }
+
+                            });
+                        } else {
+                            pagerAdapter = new PagerAdapter(fm, getLifecycle());
+                            viewPager2.setAdapter(pagerAdapter);
+                            tabLayout.addTab(tabLayout.newTab().setText("Post"));
+
+                            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                                @Override
+                                public void onTabSelected(TabLayout.Tab tab) {
+                                    viewPager2.setCurrentItem(tab.getPosition());
+                                }
+
+                                @Override
+                                public void onTabUnselected(TabLayout.Tab tab) {
+
+                                }
+
+                                @Override
+                                public void onTabReselected(TabLayout.Tab tab) {
+
+                                }
+                            });
+                            tabLayout.setVisibility(View.INVISIBLE);
+                            viewPager2.setUserInputEnabled(false);
+                        }
+                    }
+                });
+
+
     }
-
-
 }

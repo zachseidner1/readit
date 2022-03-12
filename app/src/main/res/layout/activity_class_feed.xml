@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ClassFeedActivity">
+
+    <RadioButton
+        android:layout_marginTop="10dp"
+        android:id="@+id/tipButtonFeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tip"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
+        android:layout_marginEnd="2dp"
+/>
+    <RadioButton
+        android:layout_marginTop="10dp"
+        android:id="@+id/questionButtonFeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/question"
+        android:textSize="18sp"
+        android:layout_toRightOf="@id/divider2"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
+        android:layout_marginStart="10dp"
+
+/>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="2dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/checkBoxHighSchool"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="-49dp"
+        android:layout_toRightOf="@id/tipButtonFeed"
+        android:background="@color/gray" />
+
+    <CheckBox
+        android:id="@+id/checkBoxHighSchool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tipButtonFeed"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="6dp"
+        android:text="filter by high school"
+        android:textSize="18sp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/checkBoxHighSchool"
+        android:id="@+id/classFeed"/>
+
+
+</RelativeLayout>

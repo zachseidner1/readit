@@ -34,6 +34,7 @@
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ViewPostActivity" />
+        <activity android:name=".ClassFeedActivity" />
     </application>
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
