@@ -1,6 +1,7 @@
 package com.example.readit;
 
 import java.util.Comparator;
+import java.util.Date;
 
 public class Post {
 
@@ -12,6 +13,7 @@ public class Post {
     private int thanks;
     private int postId;
     private int comments;
+    private long time;
     private String highSchool;
     //call it class in the app //add a subtitle to the layout item xml thing //store firebase // on all of the posts make sure to use strings.xml for like the class names and stuff //add some more history courses like honors history and normal history and stuff blah blah blah //tie each post to an account somehow (add 'private String userID' as a field) and then the thanks will just be an int or something
 
@@ -27,9 +29,19 @@ public class Post {
         this.highSchool = highSchool;
         this.comments = 0;
         this.thanks = 0;
+        Date date = new Date();
+        time = date.getTime();
     }
     public  Post(){
 
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public int getComments() {
@@ -122,4 +134,10 @@ public class Post {
 
     public void setQuestion(boolean question) { this.question = question; }
 
+}
+
+class SortByRecent implements  Comparator<Post> {
+    public int compare(Post a, Post b) {
+        return Long.compare(b.getTime(), a.getTime());
+    }
 }

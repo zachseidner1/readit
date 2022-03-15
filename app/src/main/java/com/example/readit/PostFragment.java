@@ -1,7 +1,9 @@
 package com.example.readit;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +13,18 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.nio.file.attribute.UserDefinedFileAttributeView;
+import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,8 +39,9 @@ public class PostFragment extends Fragment {
     Button thanksButton;
     Post post;
     CollectionReference postRef;
-    CollectionReference userDataRef;
+    DocumentReference userDataRef;
     FirebaseFirestore db;
+    FirebaseAuth mAuth;
     int postId;
 
 
@@ -90,12 +99,11 @@ public class PostFragment extends Fragment {
         postId = intent.getIntExtra("postPicked", 0);
         db = FirebaseFirestore.getInstance();
         postRef = db.collection("Posts");
-        userDataRef = db.collection("UserData");
+        mAuth = FirebaseAuth.getInstance();
+        userDataRef = db.collection("UserData").document(mAuth.getCurrentUser().getUid());
 
 
-
-
-
+        //Get the post:
         postRef.get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -115,7 +123,11 @@ public class PostFragment extends Fragment {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 UserData data = documentSnapshot.toObject(UserData.class);
-                                usernameTextView.setText(data.getUsername());
+                                if(data != null) {
+                                    usernameTextView.setText(data.getUsername());
+                                } else {
+                                    usernameTextView.setText("[deleted]");
+                                }
                             }
                         });
                         if(post.getQuestion()){
@@ -125,42 +137,78 @@ public class PostFragment extends Fragment {
                     }
                 });
 
+        //After we get the post we have to know whether or not the user has already liked this post:
+        userDataRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                UserData data = documentSnapshot.toObject(UserData.class);
+                Log.d(TAG, "onSuccess: User data gotten");
+                Log.d(TAG, "onSuccess: " + data.getLikedPostIds().toString());
+                if(data.getLikedPostIds().contains(postId)) {
+                    //The user has already liked the post so turn the thanks button to "thanks given"
+                    thanksButton.setText("thanks given \uD83E\uDD83");
+                    thanksButton.setBackgroundColor(Color.GRAY);
+                }
+            }
+        });
 
-//this still doesn't update the user's thanks it only does the post.
+        //When the thanks button is clicked:
         thanksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Check if the button is in the status to give thanks:
                 if (thanksButton.getText().equals("give thanks 🙏")) {
+
+                    //Give the post thanks:
                     thanksButton.setText("thanks given \uD83E\uDD83");
+                    thanksButton.setBackgroundColor(Color.GRAY);
                     post.setThanks(post.getThanks()+1);
-                    DocumentReference docRef = db.collection("UserData").document(post.getUid());
-                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    userDataRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             UserData data = documentSnapshot.toObject(UserData.class);
+                            //So we know the user has liked the post:
+                            ArrayList<Integer> likedPostIds = data.getLikedPostIds();
+                            likedPostIds.add(postId);
                             db.collection("UserData")
-                                    .document(post.getUid())
-                                    .update("thanks", data.getThanks()+1);
+                                .document(post.getUid())
+                                .update("thanks", data.getThanks()+1);
+                            //Update the user data so we know that the user has thanked the post already:
+                            db.collection("UserData")
+                                    .document(mAuth.getCurrentUser().getUid())
+                                    .update("likedPostIds", likedPostIds);
                         }
                     });
                 } else {
+                    //Remove the thanks:
                     thanksButton.setText("give thanks 🙏");
+                    thanksButton.setBackgroundColor(Color.parseColor("#4285F4"));
                     post.setThanks(post.getThanks()-1);
-                    DocumentReference docRef = db.collection("UserData").document(post.getUid());
-                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    userDataRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             UserData data = documentSnapshot.toObject(UserData.class);
+                            Log.d(TAG, "onSuccess: user's data: " + documentSnapshot.getId());
+                            ArrayList<Integer> likedPostIds = data.getLikedPostIds();
+                            likedPostIds.remove(Integer.valueOf(postId));
                             db.collection("UserData")
                                     .document(post.getUid())
                                     .update("thanks", data.getThanks()-1);
+                            //Update the user data so we know the user can thank the post again:
+                            db.collection("UserData")
+                                    .document(mAuth.getCurrentUser().getUid())
+                                    .update("likedPostIds", likedPostIds).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: This was successful.");
+                                    Log.d(TAG, "onSuccess: " + likedPostIds);
+                                }
+                            });
                         }
                     });
                 }
             }
         });
-
-
-return view;
+    return view;
     }
 }

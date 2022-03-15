@@ -12,8 +12,10 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -29,23 +31,20 @@ import static com.example.readit.Test.getContext;
 
 public class ClassFeedActivity extends AppCompatActivity {
 
-    RadioButton tip;
-    RadioButton question;
+    RadioButton tip, question;
     Intent intent;
     String course;
     ListView listView;
     CheckBox highschoolBox;
     String highschool;
-    boolean isQuestion;
-    boolean isHighschool;
-    boolean isTip;
+    //The following booleans initialize to false:
+    boolean isQuestion, isHighschool, isTip;
     ArrayAdapter adapter;
     ArrayList<Post> postList = new ArrayList<>();
     ArrayList<Post> tempList = new ArrayList<>();
     ArrayList<String> titleList = new ArrayList<>();
     FirebaseFirestore db;
     CollectionReference postRef;
-    DocumentReference userRef;
     FirebaseAuth auth;
     String uid;
     private static final String TAG = "ClassFeedActivity";
@@ -66,10 +65,7 @@ public class ClassFeedActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         postRef = db.collection("Posts");
         uid = auth.getCurrentUser().getUid();
-        isQuestion = true;
-        isTip = true;
-        userRef = db.collection("UserData").document(uid);
-        isHighschool = false;
+        Log.d(TAG, "User's ID: " + uid);
 
 
         //Only one is allowed to be selected, so if one is selected deselect the other:
@@ -102,26 +98,32 @@ public class ClassFeedActivity extends AppCompatActivity {
         highschoolBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Log.d(TAG, "onCheckedChanged: here");
                 if (highschoolBox.isChecked()) {
-                    userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    Log.d(TAG, "onCheckedChanged: user data " + uid);
+                    db.collection("UserData").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            Log.d(TAG, "onSuccess: was success");
                             UserData data = documentSnapshot.toObject(UserData.class);
                             highschool = data.getHighSchool();
+                            Log.d(TAG, "onSuccess: " + highschool);
+                            if (highschool == null) {
+                                Toast.makeText(getBaseContext(), "Please select your high school in settings.", Toast.LENGTH_SHORT).show();
+                                highschoolBox.setChecked(false);
+                            } else {
+                                isHighschool = true;
+                                filterFeed(true, isTip, isQuestion);
+                            }
                         }
                     });
-
-                    if(highschool == null){
-                        Toast.makeText(getBaseContext(), "Please select your high school in settings.", Toast.LENGTH_SHORT).show();
-                        highschoolBox.setChecked(false);
-                    }else {
-                        isHighschool = true;
-                        filterFeed(isHighschool, isTip, isQuestion);
-                    }
                 }
                 else {
+                    Log.d(TAG, "onCheckedChanged: not filtering by hs");
+                    Log.d(TAG, "onCheckedChanged: is tip " + isTip );
+                    Log.d(TAG, "onCheckedChanged: is question " + isQuestion);
                     isHighschool = false;
-                    filterFeed(isHighschool, isTip, isQuestion);
+                    filterFeed(false, isTip, isQuestion);
                 }
             }
         });
@@ -203,6 +205,7 @@ public class ClassFeedActivity extends AppCompatActivity {
             titleList.add(title);
         }
         adapter.notifyDataSetChanged();
+        listView.setAdapter(adapter); //update the list view
     }
 
 }

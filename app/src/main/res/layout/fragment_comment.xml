@@ -16,24 +16,28 @@
         android:textSize="20dp"
         android:text="click a post to give it thanks!" />
 
+<!--    fix comment likes-->
+
     <EditText
         android:id="@+id/et_comment"
         android:layout_width="310dp"
-        android:layout_height="55dp"
+        android:layout_height="100dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         android:layout_below="@id/text"
         android:gravity="center_horizontal"
         android:background="@drawable/rectangle_round_corners_stroke"
-        android:hint="leave comment" />
+        android:hint="leave comment"
+        android:padding="10dp"
+        android:maxLength="500"/>
 
     <Button
         android:id="@+id/submitCommentButton"
         android:layout_width="48dp"
         android:layout_below="@id/text"
         android:layout_height="47dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="24dp"
         android:clickable="false"
         android:drawableLeft="@drawable/ic_baseline_send_24"
@@ -51,6 +55,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:divider="@color/black"
+
         android:dividerHeight="2dp"
         android:background="@drawable/rectangle_round_corners_stroke"
         android:id="@+id/lv_comment"/>

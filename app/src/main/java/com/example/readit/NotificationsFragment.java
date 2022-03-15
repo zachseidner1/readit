@@ -15,11 +15,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -28,7 +26,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -52,6 +50,7 @@ public class NotificationsFragment extends Fragment {
     ArrayAdapter adapter;
     HashMap<String, Integer> postPostIdHashMap; //Will be used to easily access postId from post title.
     SharedPreferences mPrefs;
+    ArrayList<Post> postsToShow;
     boolean showThanks, showReplies;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -136,7 +135,7 @@ public class NotificationsFragment extends Fragment {
         commentRef = db.collection("Comments");
         uid = auth.getCurrentUser().getUid();
         listView = getActivity().findViewById(R.id.notificationList);
-        postPostIdHashMap = new HashMap<>();
+        postsToShow = new ArrayList<>();
 
         //load notification settings
         mPrefs = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -152,22 +151,29 @@ public class NotificationsFragment extends Fragment {
                             if (documentSnapshot.exists()) {
                                 Post post = documentSnapshot.toObject(Post.class);
                                 if (post.getUid().equals(uid)) {
-
                                     if (showThanks && post.getThanks() >= 10) {
-                                        notifications.add("Your tip titled \" " + post.getTitle() + " \" hit " + post.getThanks() + " thanks 🙏");
-                                        postPostIdHashMap.put(post.getTitle(), post.getPostId());
+                                        //TODO when this condition is satisfied, replace the HashMap with an ArrayList that stores all the posts
+                                        //TODO generate notification strings with a for i loop after this is sorted by time using comparator.
+                                        postsToShow.add(post);
                                     }
                                     if (showReplies && post.getComments() > 0) {
-                                        notifications.add("Your question titled \" " + post.getTitle() + " \" has " + post.getComments() + " replies 😯");
-                                        postPostIdHashMap.put(post.getTitle(), post.getPostId());
+                                        postsToShow.add(post);
                                     }
                                 }
                             }
                         }
-                        if (notifications.isEmpty()) {
+                        if (postsToShow.isEmpty()) {
                             notifications.add("You have no notifications right now 😐");
                         } else {
-                            notifications.sort(String::compareTo);
+                            postsToShow.sort(new SortByRecent());
+                            for (Post post :
+                                    postsToShow) {
+                                if(post.getQuestion()) {
+                                    notifications.add("Your question titled \""  + post.getTitle() + "\" got " + post.getComments() + " replies 😯");
+                                } else {
+                                    notifications.add("Your tip titled \""  + post.getTitle() + "\" got " + post.getThanks() + " thanks 🙏");
+                                }
+                            }
                         }
                         adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, notifications);
                         if(listView != null) {
@@ -181,13 +187,8 @@ public class NotificationsFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO send user to that post.
-                //Gets clicked on notification text:
-                String notification = (String) listView.getItemAtPosition(i);
-                //Extracts postTitle from notification text:
-                String postTitle = notification.substring(notification.indexOf("\"")+1, notification.lastIndexOf("\"")).trim();
-                //Get postId from title:
-                int postId = postPostIdHashMap.getOrDefault(postTitle, 0);
+                //When they click on a post that they were notified of, send them to that post.
+                int postId = postsToShow.get(i).getPostId();
 
                 Log.d(TAG, "onItemClick: " + postId);
                 if(postId == 0) {

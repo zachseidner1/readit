@@ -1,6 +1,7 @@
 package com.example.readit;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,8 +27,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,13 +45,15 @@ public class CommentFragment extends Fragment {
     ListView commentList;
     FirebaseFirestore db;
     int postId;
-    boolean canThank= true;
+    boolean canThank;
     FirebaseAuth auth;
     ArrayAdapter adapter;
     CollectionReference commentRef;
-    CollectionReference userDataRef;
+    DocumentReference userDataRef;
+    FirebaseAuth mAuth;
     ArrayList<Comment> comments = new ArrayList<>();
     ArrayList<String> commentsTitle = new ArrayList<>();
+    ArrayList<String> commentIds = new ArrayList<>();
     private static final String TAG = "CommentFragment";
 
     // TODO: Rename parameter arguments, choose names that match
@@ -102,57 +108,20 @@ public class CommentFragment extends Fragment {
         postId = intent.getIntExtra("postPicked", 0);
         submitButton = view.findViewById(R.id.submitCommentButton);
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
         commentRef = db.collection("Comments");
-        userDataRef = db.collection("UserData");
+        userDataRef = db.collection("UserData").document(mAuth.getCurrentUser().getUid());
         submitButton.setVisibility(View.VISIBLE);
-
-
-
-
-
-        commentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (canThank) {
-                    DocumentReference docRef = db.collection("UserData").document(comments.get(i).getUsername());
-                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            UserData data = documentSnapshot.toObject(UserData.class);
-                            db.collection("UserData")
-                                    .document(comments.get(i).getUsername())
-                                    .update("thanks", data.getThanks() + 1);
-                        }
-                    });
-                    Toast.makeText(getContext(), "thanks given \uD83E\uDD83", Toast.LENGTH_LONG).show();
-                    canThank = false;
-                }
-                else{
-                    DocumentReference docRef = db.collection("UserData").document(comments.get(i).getUsername());
-                    docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            UserData data = documentSnapshot.toObject(UserData.class);
-                            db.collection("UserData")
-                                    .document(comments.get(i).getUsername())
-                                    .update("thanks", data.getThanks() - 1);
-                        }
-                    });
-                    Toast.makeText(getContext(), "thanks removed \uD83D\uDE1E", Toast.LENGTH_LONG).show();
-                    canThank = true;
-                }
-            }
-        });
 
         //make this update the list real time
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(commentEditText.getText())) {
-                    Toast.makeText(getContext(), "You can not submit an empty comment", Toast.LENGTH_LONG).show(); //this doesn't work anymore for some reason
+                if (TextUtils.isEmpty(commentEditText.getText()) || commentEditText.getText() == null) {
+                    Toast.makeText(getContext(), "You can not submit an empty comment", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    commentEditText.getText().clear();
                     Comment comment = new Comment(commentEditText.getText().toString(), postId, auth.getCurrentUser().getUid(), 0);
                     db.collection("Comments")
                             .add(comment)
@@ -160,8 +129,12 @@ public class CommentFragment extends Fragment {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(getContext(), "Comment successfully submitted.", Toast.LENGTH_LONG).show();
-                                    submitButton.setVisibility(View.INVISIBLE);
-                                    adapter.notifyDataSetChanged();
+                                    submitButton.setClickable(false);
+                                    submitButton.setBackgroundColor(Color.GRAY);
+                                    commentsTitle.add(0, "\"" +  commentEditText.getText().toString() + "\" - " + auth.getCurrentUser().getDisplayName()); //this is a cheap way to get around calling firebase that improves runtime.
+                                    adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, commentsTitle);
+                                    commentList.setAdapter(adapter);
+                                    commentEditText.setText("");
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -189,29 +162,133 @@ public class CommentFragment extends Fragment {
                                 Comment comment1 = documentSnapshot.toObject(Comment.class);
                                 if (comment1.getPostID() == postId) {
                                     comments.add(documentSnapshot.toObject(Comment.class));
-                                    for(Comment comment : comments)
-                                    {
-                                        DocumentReference docRef = db.collection("UserData").document(comment.getUsername());
-                                        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                UserData data = documentSnapshot.toObject(UserData.class);
-                                                if(!commentsTitle.contains("\"" + comment.getComment() + "\"" + " - " + data.getUsername())){
-                                                    commentsTitle.add("\"" + comment.getComment() + "\"" + " - " + data.getUsername());
-                                                    adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, commentsTitle);
-                                                    commentList.setAdapter(adapter);
-                                                    Log.d(TAG, "comment added");
-                                                }
-                                            }
-                                        });
-
-                                    }
-
+                                    commentIds.add(documentSnapshot.getId());
+                                    Log.d(TAG, "onSuccess: document id:" + documentSnapshot.getId());
                                 }
                             }
-                            }
                         }
-                    });
-                }
+
+                        for (Comment comment : comments) {
+                            DocumentReference docRef = db.collection("UserData").document(comment.getUsername());
+                            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    UserData data = documentSnapshot.toObject(UserData.class);
+                                    String user;
+                                    if(data != null) {
+                                        user = data.getUsername();
+                                    } else {
+                                        user = "[deleted]";
+                                    }
+                                    if (!commentsTitle.contains("\"" + comment.getComment() + "\"" + " - " + user)) {
+                                        commentsTitle.add("\"" + comment.getComment() + "\"" + " - " + user);
+                                        adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, commentsTitle);
+                                        commentList.setAdapter(adapter);
+                                        Log.d(TAG, "comment added");
+                                    }
+                                }
+                            });
+                        }
+                        //Even though this is unrelated to the comments themselves we need to do this AFTER the comments are loaded:
+                        commentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                //Check whether or not the user has already thanked this comment:
+                                userDataRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        UserData data = documentSnapshot.toObject(UserData.class);
+                                        Log.d(TAG, "onSuccess: User data gotten");
+                                        Log.d(TAG, "onSuccess: " + data.getLikedCommentIds().toString());
+                                        if(commentIds.size() > i) {
+                                            Log.d(TAG, "onSuccess: Comment id" + commentIds.get(i) + "should correspond with " + comments.get(i).getComment());
+                                            if(data.getLikedCommentIds().contains(commentIds.get(i))) {
+                                                //The user has already liked the comment
+                                                canThank = false;
+                                            } else{
+                                                //Allow the user to like the comment:
+                                                Log.d(TAG, "onSuccess: Can thank: " + canThank);
+                                                canThank = true;
+                                            }
+                                        }
+                                        else {
+                                            Toast.makeText(getContext(), "There was an error liking the comment 😐", Toast.LENGTH_SHORT).show();
+                                            canThank = false; //We just set this to true. Because of the error we cannot verify that they are actually able to like the comment.
+                                            //It is assumed they already liked the comment.
+                                        }
+                                        //Give thanks
+                                        DocumentReference docRef = db.collection("UserData").document(comments.get(i).getUsername());
+                                        if(canThank) { //If they can thank the comment:
+                                            Log.d(TAG, "onItemClick: ");
+                                            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                    //Update the thanks of the comment author:
+                                                    Log.d(TAG, "onSuccess: User isn't deleted");
+                                                    UserData commentData = documentSnapshot.toObject(UserData.class);
+                                                    if(commentData != null) {
+                                                        db.collection("UserData")
+                                                                .document(comments.get(i).getUsername())
+                                                                .update("thanks", commentData.getThanks() + 1);
+                                                    }
+
+                                                    //Update the liked comments for the user who liked the comment:
+                                                    //To do this fetch the user's data and append the comment ID to their list.
+                                                    userDataRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                            UserData userData = documentSnapshot.toObject(UserData.class);
+                                                            ArrayList<String> likedCommentIds = userData.getLikedCommentIds();
+                                                            likedCommentIds.add(commentIds.get(i));
+                                                            Log.d(TAG, "onSuccess: Added comment ID:" + commentIds.get(i));
+                                                            db.collection("UserData")
+                                                                    .document(mAuth.getCurrentUser().getUid())
+                                                                    .update("likedCommentIds", likedCommentIds);
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                            Toast.makeText(getContext(), "thanks given \uD83E\uDD83", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else { //They are not allowed to thank it:
+                                            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                    UserData commentData = documentSnapshot.toObject(UserData.class);
+                                                    //Remove the thanks of the post:
+                                                    if(commentData != null) {
+                                                        db.collection("UserData")
+                                                                .document(comments.get(i).getUsername())
+                                                                .update("thanks", commentData.getThanks() - 1);
+                                                    }
+                                                    //Update the lists of comments that the user has liked:
+                                                    //To do this fetch the user's data and remove the comment ID from the list.
+                                                    userDataRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                            UserData userData = documentSnapshot.toObject(UserData.class);
+                                                            ArrayList<String> likedCommentIds = userData.getLikedCommentIds();
+                                                            likedCommentIds.remove(commentIds.get(i));
+                                                            db.collection("UserData")
+                                                                    .document(mAuth.getCurrentUser().getUid())
+                                                                    .update("likedCommentIds", likedCommentIds);
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                            Toast.makeText(getContext(), "thanks removed \uD83D\uDE1E", Toast.LENGTH_SHORT).show();
+                                            canThank = true;
+                                        }
+                                    }
+                        });
+                    }
+                });
     }
+});}} // <-- sorry for spaghetti code 😋🍝
+
+
+
+
+
 

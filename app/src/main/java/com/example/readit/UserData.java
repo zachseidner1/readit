@@ -1,21 +1,43 @@
 package com.example.readit;
 
+import java.util.ArrayList;
+
 public class UserData {
     private String uid;
     private String highSchool;
     private int thanks;
     private String username;
+    private ArrayList<Integer> likedPostIds;
+    private ArrayList<String> likedCommentIds;
 
     public UserData(String uid){
         this.highSchool = null;
         this.thanks = 0;
         this.uid = uid;
+        likedPostIds = new ArrayList<>();
+        likedCommentIds = new ArrayList<>();
     }
 
     public UserData() {
         this.highSchool = null;
         this.thanks = 0;
         this.uid = null;
+    }
+
+    public ArrayList<String> getLikedCommentIds() {
+        return likedCommentIds;
+    }
+
+    public void setLikedCommentIds(ArrayList<String> likedCommentIds) {
+        this.likedCommentIds = likedCommentIds;
+    }
+
+    public ArrayList<Integer> getLikedPostIds() {
+        return likedPostIds;
+    }
+
+    public void setLikedPostIds(ArrayList<Integer> likedPostIds) {
+        this.likedPostIds = likedPostIds;
     }
 
     public String getUsername() {
