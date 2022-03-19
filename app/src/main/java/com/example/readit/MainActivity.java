@@ -1,39 +1,45 @@
 package com.example.readit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "tag";
     BottomNavigationView bottomNavigationView;
     Menu menu;
+    String[] list = {"4r5e", "5h1t", "5hit", "a55", "$hit", "a$$", "8itch", "anal", "anus", "ar5e", "arrse", "arse", "ass", "ass-fucker", "asses", "assfucker", "assfukka", "asshole", "assholes", "asswhole", "a_s_s", "b!tch", "b00bs", "b17ch", "b1tch", "ballbag", "balls", "ballsack", "bastard", "beastial", "beastiality", "bellend", "bestial", "bestiality", "bi+ch", "biatch", "bitch", "bitcher", "bitchers", "bitches", "bitchin", "bitching", "bloody", "blow job", "blowjob", "blowjobs", "boiolas", "bollock", "bollok", "boner", "boob", "boobs", "booobs", "boooobs", "booooobs", "booooooobs", "breasts", "buceta", "bugger", "bum", "bunny fucker", "butt", "butthole", "buttmuch", "buttplug", "c0ck", "c0cksucker", "carpet muncher", "cawk", "chink", "cipa", "cl1t", "clit", "clitoris", "clits", "cnut", "cock", "cock-sucker", "cockface", "cockhead", "cockmunch", "cockmuncher", "cocks", "cocksuck", "cocksucked", "cocksucker", "cocksucking", "cocksucks", "cocksuka", "cocksukka", "cok", "cokmuncher", "coksucka", "coon", "cox", "crap", "cum", "cummer", "cumming", "cums", "cumshot", "cunilingus", "cunillingus", "cunnilingus", "cunt", "cuntlick", "cuntlicker", "cuntlicking", "cunts", "cyalis", "cyberfuc", "cyberfuck", "cyberfucked", "cyberfucker", "cyberfuckers", "cyberfucking", "d1ck", "damn", "dick", "dickhead", "dildo", "dildos", "dink", "dinks", "dirsa", "dlck", "dog-fucker", "doggin", "dogging", "donkeyribber", "doosh", "duche", "dyke", "ejaculate", "ejaculated", "ejaculates", "ejaculating", "ejaculatings", "ejaculation", "ejakulate", "f u c k", "f u c k e r", "f4nny", "fag", "fagging", "faggitt", "faggot", "faggs", "fagot", "fagots", "fags", "fanny", "fannyflaps", "fannyfucker", "fanyy", "fatass", "fcuk", "fcuker", "fcuking", "feck", "fecker", "felching", "fellate", "fellatio", "fingerfuck", "fingerfucked", "fingerfucker", "fingerfuckers", "fingerfucking", "fingerfucks", "fistfuck", "fistfucked", "fistfucker", "fistfuckers", "fistfucking", "fistfuckings", "fistfucks", "flange", "fook", "fooker", "fuck", "fucka", "fucked", "fucker", "fuckers", "fuckhead", "fuckheads", "fuckin", "fucking", "fuckings", "fuckingshitmotherfucker", "fuckme", "fucks", "fuckwhit", "fuckwit", "fudge packer", "fudgepacker", "fuk", "fuker", "fukker", "fukkin", "fuks", "fukwhit", "fukwit", "fux", "fux0r", "f_u_c_k", "gangbang", "gangbanged", "gangbangs", "gaylord", "gaysex", "goatse", "God", "god-dam", "god-damned", "goddamn", "goddamned", "hardcoresex", "hell", "heshe", "hoar", "hoare", "hoer", "homo", "hore", "horniest", "horny", "hotsex", "jack-off", "jackoff", "jap", "jerk-off", "jism", "jiz", "jizm", "jizz", "kawk", "knob", "knobead", "knobed", "knobend", "knobhead", "knobjocky", "knobjokey", "kock", "kondum", "kondums", "kum", "kummer", "kumming", "kums", "kunilingus", "l3i+ch", "l3itch", "labia", "lust", "lusting", "m0f0", "m0fo", "m45terbate", "ma5terb8", "ma5terbate", "masochist", "master-bate", "masterb8", "masterbat*", "masterbat3", "masterbate", "masterbation", "masterbations", "masturbate", "mo-fo", "mof0", "mofo", "mothafuck", "mothafucka", "mothafuckas", "mothafuckaz", "mothafucked", "mothafucker", "mothafuckers", "mothafuckin", "mothafucking", "mothafuckings", "mothafucks", "mother fucker", "motherfuck", "motherfucked", "motherfucker", "motherfuckers", "motherfuckin", "motherfucking", "motherfuckings", "motherfuckka", "motherfucks", "muff", "mutha", "muthafecker", "muthafuckker", "muther", "mutherfucker", "n1gga", "n1gger", "nazi", "nigg3r", "nigg4h", "nigga", "niggah", "niggas", "niggaz", "nigger", "niggers", "nob", "nob jokey", "nobhead", "nobjocky", "nobjokey", "numbnuts", "nutsack", "orgasim", "orgasims", "orgasm", "orgasms", "p0rn", "pawn", "pecker", "penis", "penisfucker", "phonesex", "phuck", "phuk", "phuked", "phuking", "phukked", "phukking", "phuks", "phuq", "pigfucker", "pimpis", "piss", "pissed", "pisser", "pissers", "pisses", "pissflaps", "pissin", "pissing", "pissoff", "poop", "porn", "porno", "pornography", "pornos", "prick", "pricks", "pron", "pube", "pusse", "pussi", "pussies", "pussy", "pussys", "rectum", "retard", "rimjaw", "rimming", "s hit", "s.o.b.", "sadist", "schlong", "screwing", "scroat", "scrote", "scrotum", "semen", "sex", "sh!+", "sh!t", "sh1t", "shag", "shagger", "shaggin", "shagging", "shemale", "shi+", "shit", "shitdick", "shite", "shited", "shitey", "shitfuck", "shitfull", "shithead", "shiting", "shitings", "shits", "shitted", "shitter", "shitters", "shitting", "shittings", "shitty", "skank", "slut", "sluts", "smegma", "smut", "snatch", "son-of-a-bitch", "spac", "spunk", "s_h_i_t", "t1tt1e5", "t1tties", "teets", "teez", "testical", "testicle", "tit", "titfuck", "tits", "titt", "tittie5", "tittiefucker", "titties", "tittyfuck", "tittywank", "titwank", "tosser", "turd", "tw4t", "twat", "twathead", "twatty", "twunt", "twunter", "v14gra", "v1gra", "vagina", "viagra", "vulva", "w00se", "wang", "wank", "wanker", "wanky", "whoar", "whore", "willies", "willy", "xrated", "xxx"};
+
+    static ArrayList<String> badWords = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        badWords.addAll(Arrays.asList(list));
 
-        if(getIntent().hasExtra("message")) {
+        if (getIntent().hasExtra("message")) {
             Toast.makeText(this, getIntent().getStringExtra("message"), Toast.LENGTH_SHORT).show();
         }
 
-        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             Intent i = new Intent(this, WelcomeActivity.class);
             startActivity(i);
         }
@@ -47,7 +53,7 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
-                switch(item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.navigation_feed:
                         fragment = new ClassBrowserFragment();
                         break;
@@ -74,24 +80,56 @@ public class MainActivity extends AppCompatActivity  {
         return true;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//
-//        switch(item.getItemId()){
-//            case R.id.menu_aToz:
-//                //sort a to z
-//                Collections.sort(MyApplication.postList, Post.PostNameAZComparator);
-////                ClassBrowserFragment.myAdapter.notifyDataSetChanged();
-//                Toast.makeText(MainActivity.this, "Sort A to Z", Toast.LENGTH_LONG).show();
-//                return true;
-//            case R.id.menu_zToa:
-//                //sort z to a
-//                Collections.sort(MyApplication.postList, Post.PostNameZAComparator);
-////                ClassBrowserFragment.myAdapter.notifyDataSetChanged();
-//                Toast.makeText(MainActivity.this, "Sort Z to A", Toast.LENGTH_LONG).show();
-//                return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+
+
+    public static String isAppropriate(String s) {
+        ArrayList<Integer> spacePos = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == ' ')
+                spacePos.add(i);
+        }
+
+        String noSpace = s.replaceAll(" ", "");
+        String input = noSpace.toLowerCase();
+        input = input.replaceAll("0", "o");
+        input = input.replaceAll("1", "i");
+        input = input.replaceAll("3", "e");
+        input = input.replaceAll("4", "a");
+        input = input.replaceAll("5", "s");
+        input = input.replaceAll("6", "b");
+        input = input.replaceAll("7", "t");
+        input = input.replaceAll("8", "b");
+        input = input.replaceAll("9", "g");
+        input = input.replaceAll("\\$", "s");
+        input = input.replaceAll("@", "a");
+        input = input.replaceAll("\\+", "t");
+        input = input.replaceAll("\\(", "c");
+        input = input.replaceAll("\\[", "c");
+
+        for (String word : badWords) {
+            if (input.contains(word)) {
+                while (input.contains(word)) { //this is the problem
+                    String insert = "";
+                    for (int i = 0; i < word.length(); i++) {
+                        insert = insert + "*";
+
+                    }
+                    Log.d(TAG, "noSpace is " + noSpace);
+                    int index = input.indexOf(word);
+                    input = input.substring(0, index) + insert + input.substring(index + word.length());
+                    noSpace = noSpace.substring(0, index) + insert + noSpace.substring(index + word.length());
+                }
+            }
+        }
+        for(int i = 0; i < spacePos.size(); i++){
+            noSpace = addChar(noSpace, ' ', spacePos.get(i));
+        }
+        return noSpace;
+    }
+
+    public static String addChar(String str, char ch, int position) {
+        StringBuilder sb = new StringBuilder(str);
+        sb.insert(position, ch);
+        return sb.toString();
+    }
 }

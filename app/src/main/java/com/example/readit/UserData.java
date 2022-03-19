@@ -18,7 +18,7 @@ public class UserData {
         likedCommentIds = new ArrayList<>();
     }
 
-    public UserData() {
+    public UserData(){
         this.highSchool = null;
         this.thanks = 0;
         this.uid = null;

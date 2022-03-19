@@ -1,17 +1,11 @@
 package com.example.readit;
 
-import android.app.Application;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +14,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.net.Inet4Address;
-
-import static android.content.ContentValues.TAG;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -149,23 +140,31 @@ public class CreateFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = titleText.getText().toString().trim();
 
-                if(!TextUtils.isEmpty(title)) {
-                    String post = postText.getText().toString();
-                    //Launch post confirmation activity
-                    Intent i = new Intent(getContext(), PostConfirmationActivity.class);
-                    i.putExtra("title", title);
-                    i.putExtra("post", post);
-                    startActivity(i);
+                String title = titleText.getText().toString().trim();
+                String post = postText.getText().toString();
+                title = MainActivity.isAppropriate(title);
+                post = MainActivity.isAppropriate(post);
+
+
+                    if (!TextUtils.isEmpty(title)) {
+
+                        //Launch post confirmation activity
+                        Intent i = new Intent(getContext(), PostConfirmationActivity.class);
+                        i.putExtra("title", title);
+                        i.putExtra("post", post);
+                        startActivity(i);
+                    } else {
+                        //Set title border to red
+                        titleText.setBackground(ContextCompat.getDrawable(view.getContext(), R.drawable.rectangle_round_corners_error));
+                        //Show error text
+                        errorText.setVisibility(View.VISIBLE);
+                    }
                 }
-                else {
-                    //Set title border to red
-                    titleText.setBackground(ContextCompat.getDrawable(view.getContext(), R.drawable.rectangle_round_corners_error));
-                    //Show error text
-                    errorText.setVisibility(View.VISIBLE);
-                }
-            }
+
+
         });
     }
+
+
 }

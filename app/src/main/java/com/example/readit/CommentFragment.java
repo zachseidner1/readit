@@ -27,11 +27,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -122,7 +119,7 @@ public class CommentFragment extends Fragment {
                     Toast.makeText(getContext(), "You can not submit an empty comment", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Comment comment = new Comment(commentEditText.getText().toString(), postId, auth.getCurrentUser().getUid(), 0);
+                    Comment comment = new Comment(MainActivity.isAppropriate(commentEditText.getText().toString()), postId, auth.getCurrentUser().getUid(), 0);
                     db.collection("Comments")
                             .add(comment)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -131,7 +128,7 @@ public class CommentFragment extends Fragment {
                                     Toast.makeText(getContext(), "Comment successfully submitted.", Toast.LENGTH_LONG).show();
                                     submitButton.setClickable(false);
                                     submitButton.setBackgroundColor(Color.GRAY);
-                                    commentsTitle.add(0, "\"" +  commentEditText.getText().toString() + "\" - " + auth.getCurrentUser().getDisplayName()); //this is a cheap way to get around calling firebase that improves runtime.
+                                    commentsTitle.add(0, "\"" +  MainActivity.isAppropriate(commentEditText.getText().toString()) + "\" - " + auth.getCurrentUser().getDisplayName()); //this is a cheap way to get around calling firebase that improves runtime.
                                     adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, commentsTitle);
                                     commentList.setAdapter(adapter);
                                     commentEditText.setText("");
