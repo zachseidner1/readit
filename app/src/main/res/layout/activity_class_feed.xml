@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ClassFeedActivity">
 
+<!--    Filters:-->
+
     <RadioButton
         android:layout_marginTop="10dp"
         android:id="@+id/tipButtonFeed"
@@ -16,8 +18,7 @@
         android:layout_marginStart="20dp"
         android:paddingStart="2dp"
         android:paddingEnd="2dp"
-        android:layout_marginEnd="2dp"
-/>
+        android:layout_marginEnd="2dp" />
     <RadioButton
         android:layout_marginTop="10dp"
         android:id="@+id/questionButtonFeed"
@@ -28,9 +29,7 @@
         android:layout_toRightOf="@id/divider2"
         android:paddingStart="2dp"
         android:paddingEnd="2dp"
-        android:layout_marginStart="10dp"
-
-/>
+        android:layout_marginStart="10dp" />
 
     <View
         android:id="@+id/divider2"
@@ -52,10 +51,29 @@
         android:text="filter by high school"
         android:textSize="18sp" />
 
+<!--    Search bar: -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="or search for posts:"
+        android:id="@+id/browseText"
+        android:fontFamily="@font/roboto_bold"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/checkBoxHighSchool"/>
+
+    <androidx.appcompat.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/browseText"
+        android:id="@+id/searchBar2"/>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/checkBoxHighSchool"
+        android:layout_below="@id/searchBar2"
         android:id="@+id/classFeed"/>
 
 
