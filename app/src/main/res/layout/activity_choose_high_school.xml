@@ -24,10 +24,18 @@
         android:weightSum="2"
         android:orientation="vertical">
 
-        <SearchView
+        <fragment android:id="@+id/autocomplete_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/searchBar"/>
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            />
+
+        <Button
+            android:id="@+id/submitSchoolButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit School" />
+
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -1,3 +1,20 @@
-include ':readitModule'
-include ':app'
-rootProject.name = "readit"
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+
+    dependencyResolutionManagement {
+        repositories {
+            google()
+            mavenCentral()
+        }
+    }
+
+    include ':readitModule'
+    include ':app'
+    rootProject.name = "readit"
+
+
+}
