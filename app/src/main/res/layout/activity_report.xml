@@ -30,8 +30,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="if you want to submit it for review please click the report button below and we will manually review it."
+        android:fontFamily="@font/roboto_regular"
+        android:text="if you want to submit it for review please click the report button below and we will manually review to ensure it is a high school."
         android:textColor="@color/black"
         android:textSize="30sp" />
 
@@ -40,13 +40,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/reportTextView2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="134dp"
         android:layout_marginTop="71dp"
-        android:layout_marginEnd="121dp"
-        android:gravity="center_horizontal"
-        android:text="Report"
-        android:textSize="22dp" />
+        android:background="@drawable/rectangle_round_corners"
+        android:layout_centerHorizontal="true"
+        android:text="report"
+        android:drawableLeft="@drawable/ic_baseline_send_24"
+        android:textAllCaps="false"
+        android:textSize="30dp"
+        android:letterSpacing="0"
+        />
 
 </RelativeLayout>

@@ -81,7 +81,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/gradient_button"
-        android:src="@drawable/login"
+        android:src="@drawable/ic_baseline_send_24"
+        android:scaleType="fitXY"
+        android:padding="15dp"
         android:onClick="onSubmit"
         android:layout_below="@id/phoneBackground"
         android:contentDescription="@string/image_button_desc"/>

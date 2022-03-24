@@ -19,7 +19,7 @@
     <LinearLayout
         android:id="@+id/browseClassLayout"
         android:layout_below="@id/browseSchools"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:weightSum="2"
         android:orientation="vertical">
@@ -32,13 +32,18 @@
 
         <Button
             android:id="@+id/submitSchoolButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
-            android:text="Submit School" />
+            android:text="submit school"
+            android:paddingLeft="20dp"
+            android:letterSpacing="0"
+            android:paddingRight="20dp"
+            android:drawableLeft="@drawable/ic_baseline_send_24"
+            android:textSize="25sp"
+            android:textAllCaps="false"
+            android:background="@drawable/rectangle_round_corners"/>
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/highSchoolList"/>
     </LinearLayout>
 </RelativeLayout>

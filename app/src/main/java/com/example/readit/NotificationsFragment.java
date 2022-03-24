@@ -128,6 +128,7 @@ public class NotificationsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        postsToShow = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         db =  FirebaseFirestore.getInstance();
         notifications = new ArrayList<>();
@@ -188,17 +189,18 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //When they click on a post that they were notified of, send them to that post.
-                int postId = postsToShow.get(i).getPostId();
+                if(!postsToShow.isEmpty()) {
+                    int postId = postsToShow.get(i).getPostId();
 
-                Log.d(TAG, "onItemClick: " + postId);
-                if(postId == 0) {
-                    Toast.makeText(getContext(), "Well, this is awkward. An error occurred and we couldn't find the post associated with this notification.", Toast.LENGTH_LONG).show();
-                } else {
-                    Intent intent = new Intent(getContext(), ViewPostActivity.class);
-                    intent.putExtra("postPicked", postId);
-                    startActivity(intent);
+                    Log.d(TAG, "onItemClick: " + postId);
+                    if(postId == 0) {
+                        Toast.makeText(getContext(), "Well, this is awkward. An error occurred and we couldn't find the post associated with this notification.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(getContext(), ViewPostActivity.class);
+                        intent.putExtra("postPicked", postId);
+                        startActivity(intent);
+                    }
                 }
-
             }
         });
     }

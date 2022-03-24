@@ -39,7 +39,8 @@ public class ReportActivity extends AppCompatActivity {
         intent = getIntent();
         school = intent.getStringExtra("school");
         textView = findViewById(R.id.reportTextView);
-        textView.setText(school + textView.getText());
+        String schoolText ="\"" + school + "\"" + textView.getText();
+        textView.setText(schoolText);
         button = findViewById(R.id.reviewButton);
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
